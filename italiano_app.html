@@ -1,0 +1,1141 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Italiano — Simulador & Flashcards</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@400;500;600;700&display=swap');
+
+:root {
+  --blu: #1a3a6b;
+  --blu2: #2a5298;
+  --blu-s: #e8edf7;
+  --red: #c0392b;
+  --green: #1a6b3a;
+  --green-s: #e8f5ed;
+  --gold: #d4a017;
+  --gold-s: #fef8e4;
+  --purple: #6b3a8a;
+  --purple-s: #f3eef8;
+  --gray: #f0f2f5;
+  --text: #1c1c2e;
+  --muted: #6b7280;
+  --border: #d0d8e8;
+  --white: #ffffff;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: #f0f3fa;
+  color: var(--text);
+  min-height: 100vh;
+}
+
+/* ── HEADER ── */
+header {
+  background: var(--blu);
+  color: white;
+  padding: 16px 20px 0;
+  border-bottom: 4px solid var(--red);
+}
+header h1 { font-family: 'Lora', serif; font-size: 1.4rem; margin-bottom: 2px; }
+header p { font-size: 0.8rem; opacity: 0.65; margin-bottom: 0; }
+
+.header-top {
+  display: flex; align-items: center;
+  justify-content: space-between; flex-wrap: wrap;
+  gap: 10px; margin-bottom: 14px;
+}
+.header-link {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: rgba(255,255,255,0.15); color: white;
+  border: 2px solid rgba(255,255,255,0.35);
+  padding: 7px 13px; border-radius: 8px;
+  font-family: 'Inter', sans-serif; font-size: 0.78rem; font-weight: 600;
+  text-decoration: none; white-space: nowrap;
+  transition: background 0.2s; flex-shrink: 0;
+}
+.header-link:hover { background: rgba(255,255,255,0.25); }
+
+.nav-tabs {
+  display: flex; gap: 2px; overflow-x: auto;
+  scrollbar-width: none; -webkit-overflow-scrolling: touch;
+}
+.nav-tabs::-webkit-scrollbar { display: none; }
+.nav-btn {
+  background: transparent; border: none;
+  color: rgba(255,255,255,0.6);
+  font-family: 'Inter', sans-serif; font-size: 0.82rem; font-weight: 500;
+  padding: 10px 18px; cursor: pointer; border-radius: 6px 6px 0 0;
+  white-space: nowrap; transition: all 0.2s;
+  border-bottom: 3px solid transparent;
+  -webkit-tap-highlight-color: transparent;
+}
+.nav-btn:hover { color: white; background: rgba(255,255,255,0.1); }
+.nav-btn.active { background: #f0f3fa; color: var(--blu); border-bottom-color: var(--red); font-weight: 600; }
+
+.page { display: none; max-width: 860px; margin: 0 auto; padding: 24px 16px; }
+.page.active { display: block; }
+
+@media (max-width: 480px) {
+  header { padding: 12px 14px 0; }
+  header h1 { font-size: 1.1rem; }
+  .nav-btn { font-size: 0.75rem; padding: 9px 14px; }
+  .card-area { height: 200px; }
+  .card-word { font-size: 1.4rem !important; }
+  .scenario-grid { grid-template-columns: 1fr 1fr; }
+  .frase-card { flex-direction: column; align-items: flex-start; gap: 4px; }
+}
+
+/* ── FLASHCARDS ── */
+.fc-controls {
+  display: flex; gap: 10px; flex-wrap: wrap; align-items: center;
+  margin-bottom: 22px;
+}
+.fc-controls select {
+  font-family: 'Inter', sans-serif; font-size: 0.88rem;
+  padding: 8px 14px; border: 2px solid var(--border);
+  border-radius: 8px; background: white; color: var(--text);
+  cursor: pointer; flex: 1; min-width: 180px;
+}
+.fc-controls select:focus { outline: none; border-color: var(--blu2); }
+
+.fc-stats {
+  display: flex; gap: 10px; margin-bottom: 20px;
+}
+.fc-stat {
+  flex: 1; background: white; border: 1px solid var(--border);
+  border-radius: 8px; padding: 10px 14px; text-align: center;
+  font-size: 0.8rem; color: var(--muted);
+}
+.fc-stat strong { display: block; font-size: 1.4rem; font-weight: 700; margin-bottom: 2px; }
+.fc-stat.ok strong { color: var(--green); }
+.fc-stat.nok strong { color: var(--red); }
+.fc-stat.rem strong { color: var(--blu2); }
+
+.card-area {
+  perspective: 1000px;
+  width: 100%; max-width: 500px; height: 240px;
+  margin: 0 auto 24px;
+  cursor: pointer;
+}
+
+.card-inner {
+  position: relative; width: 100%; height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.card-area.flipped .card-inner { transform: rotateY(180deg); }
+
+.card-face {
+  position: absolute; width: 100%; height: 100%;
+  backface-visibility: hidden;
+  border-radius: 16px;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  padding: 28px;
+  text-align: center;
+  box-shadow: 0 4px 24px rgba(26,58,107,0.12);
+}
+.card-front {
+  background: white;
+  border: 2px solid var(--border);
+}
+.card-back {
+  background: var(--blu);
+  transform: rotateY(180deg);
+  color: white;
+  border: 2px solid var(--blu2);
+}
+
+.card-label {
+  font-size: 0.72rem; font-weight: 600; letter-spacing: 0.08em;
+  text-transform: uppercase; margin-bottom: 10px; opacity: 0.5;
+}
+.card-word { font-family: 'Lora', serif; font-size: 2rem; font-weight: 700; margin-bottom: 6px; }
+.card-sub { font-size: 0.85rem; opacity: 0.7; font-style: italic; }
+.card-tip { font-size: 0.78rem; opacity: 0.45; margin-top: 14px; }
+
+.card-actions { display: flex; gap: 10px; justify-content: center; margin-bottom: 20px; }
+.btn-action {
+  padding: 11px 24px; border: none; border-radius: 8px;
+  font-family: 'Inter', sans-serif; font-size: 0.88rem; font-weight: 600;
+  cursor: pointer; transition: all 0.15s;
+}
+.btn-errei { background: #fdecea; color: var(--red); border: 2px solid #f5b7b1; }
+.btn-errei:hover { background: #fadbd8; }
+.btn-acertei { background: var(--green-s); color: var(--green); border: 2px solid #a9dfbf; }
+.btn-acertei:hover { background: #d5f5e3; }
+.btn-pular { background: var(--gray); color: var(--muted); border: 2px solid var(--border); }
+.btn-pular:hover { background: #e5e7eb; }
+
+.fc-progress-bar {
+  background: var(--border); border-radius: 99px; height: 6px; margin-bottom: 8px;
+}
+.fc-progress-fill {
+  background: linear-gradient(90deg, var(--blu2), var(--purple));
+  height: 6px; border-radius: 99px; transition: width 0.3s;
+}
+.fc-progress-label { font-size: 0.78rem; color: var(--muted); text-align: center; }
+
+.fc-done {
+  background: white; border: 1px solid var(--border);
+  border-radius: 16px; padding: 36px; text-align: center;
+  display: none;
+}
+.fc-done.show { display: block; }
+.fc-done h3 { font-family: 'Lora', serif; font-size: 1.5rem; color: var(--blu); margin-bottom: 8px; }
+.fc-done .score { font-size: 3rem; font-weight: 700; color: var(--green); margin: 12px 0; }
+.fc-done p { color: var(--muted); font-size: 0.9rem; }
+.btn-restart {
+  margin-top: 16px; background: var(--blu); color: white;
+  border: none; padding: 11px 28px; border-radius: 8px;
+  font-family: 'Inter', sans-serif; font-weight: 600; cursor: pointer; font-size: 0.9rem;
+}
+
+/* ── SIMULADOR ── */
+.scenario-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px; margin-bottom: 8px;
+}
+.scenario-card {
+  background: white; border: 2px solid var(--border);
+  border-radius: 12px; padding: 18px 16px;
+  cursor: pointer; transition: all 0.18s; text-align: left;
+}
+.scenario-card:hover { border-color: var(--blu2); transform: translateY(-2px); box-shadow: 0 4px 16px rgba(26,58,107,0.1); }
+.scenario-card.active { border-color: var(--blu); background: var(--blu-s); }
+.scenario-icon { font-size: 1.8rem; margin-bottom: 8px; }
+.scenario-title { font-weight: 600; color: var(--blu); font-size: 0.92rem; margin-bottom: 3px; }
+.scenario-desc { font-size: 0.78rem; color: var(--muted); }
+
+.chat-box {
+  background: white; border: 1px solid var(--border);
+  border-radius: 14px; overflow: hidden;
+  display: none; margin-top: 20px;
+}
+.chat-box.show { display: block; }
+
+.chat-header {
+  background: var(--blu); color: white;
+  padding: 14px 20px; display: flex; align-items: center; gap: 10px;
+}
+.chat-avatar {
+  width: 36px; height: 36px; border-radius: 50%;
+  background: rgba(255,255,255,0.2);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.2rem;
+}
+.chat-header-info h4 { font-size: 0.92rem; font-weight: 600; }
+.chat-header-info p { font-size: 0.75rem; opacity: 0.7; }
+
+.chat-messages {
+  padding: 20px; min-height: 260px; max-height: 360px;
+  overflow-y: auto; display: flex; flex-direction: column; gap: 12px;
+}
+
+.msg { display: flex; gap: 10px; max-width: 80%; }
+.msg.them { align-self: flex-start; }
+.msg.me { align-self: flex-end; flex-direction: row-reverse; }
+
+.msg-bubble {
+  padding: 10px 14px; border-radius: 14px;
+  font-size: 0.88rem; line-height: 1.5;
+}
+.msg.them .msg-bubble {
+  background: var(--gray); color: var(--text);
+  border-bottom-left-radius: 4px;
+}
+.msg.me .msg-bubble {
+  background: var(--blu); color: white;
+  border-bottom-right-radius: 4px;
+}
+.msg-name { font-size: 0.72rem; color: var(--muted); margin-bottom: 3px; }
+.msg.me .msg-name { text-align: right; }
+
+.msg-avatar {
+  width: 32px; height: 32px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1rem; flex-shrink: 0;
+  background: var(--blu-s);
+}
+.msg.me .msg-avatar { background: var(--purple-s); }
+
+.chat-translation {
+  font-size: 0.75rem; color: var(--muted);
+  font-style: italic; margin-top: 3px; padding: 0 14px;
+}
+
+.chat-options {
+  padding: 16px 20px; border-top: 1px solid var(--border);
+  background: #fafbff;
+}
+.chat-options p { font-size: 0.78rem; color: var(--muted); margin-bottom: 10px; font-weight: 500; }
+.options-list { display: flex; flex-direction: column; gap: 7px; }
+
+.opt-btn {
+  background: white; border: 2px solid var(--border);
+  border-radius: 8px; padding: 10px 14px;
+  text-align: left; cursor: pointer; font-family: 'Inter', sans-serif;
+  font-size: 0.85rem; transition: all 0.15s; line-height: 1.4;
+}
+.opt-btn:hover { border-color: var(--blu2); background: var(--blu-s); }
+.opt-btn.correct { border-color: var(--green); background: var(--green-s); cursor: default; }
+.opt-btn.wrong { border-color: var(--red); background: #fdecea; cursor: default; }
+.opt-btn .opt-pt { font-size: 0.75rem; color: var(--muted); display: block; margin-top: 2px; }
+.opt-btn.correct .opt-pt { color: var(--green); }
+.opt-btn.wrong .opt-pt { color: var(--red); }
+
+.feedback-msg {
+  margin-top: 10px; padding: 10px 14px;
+  border-radius: 8px; font-size: 0.85rem; display: none;
+}
+.feedback-msg.show { display: block; }
+.feedback-msg.ok { background: var(--green-s); color: var(--green); }
+.feedback-msg.nok { background: #fdecea; color: var(--red); }
+
+.chat-end {
+  padding: 20px; text-align: center; display: none;
+  border-top: 1px solid var(--border);
+}
+.chat-end.show { display: block; }
+.chat-end h4 { font-family: 'Lora', serif; font-size: 1.1rem; color: var(--blu); margin-bottom: 6px; }
+.chat-end p { font-size: 0.85rem; color: var(--muted); margin-bottom: 14px; }
+.btn-new-scenario {
+  background: var(--blu); color: white; border: none;
+  padding: 10px 24px; border-radius: 8px;
+  font-family: 'Inter', sans-serif; font-weight: 600;
+  cursor: pointer; font-size: 0.88rem; margin-right: 8px;
+}
+.btn-retry {
+  background: white; color: var(--blu); border: 2px solid var(--blu);
+  padding: 10px 24px; border-radius: 8px;
+  font-family: 'Inter', sans-serif; font-weight: 600;
+  cursor: pointer; font-size: 0.88rem;
+}
+
+.sim-score {
+  display: flex; gap: 8px; padding: 0 20px 14px; flex-wrap: wrap;
+}
+.sim-score-item {
+  background: var(--gray); border-radius: 6px;
+  padding: 4px 10px; font-size: 0.78rem; color: var(--muted);
+}
+.sim-score-item span { font-weight: 700; }
+.sim-score-item.ok span { color: var(--green); }
+.sim-score-item.nok span { color: var(--red); }
+
+/* ── SHARED ── */
+h2 { font-family: 'Lora', serif; font-size: 1.35rem; color: var(--blu); margin-bottom: 6px; }
+.subtitle { color: var(--muted); font-size: 0.85rem; margin-bottom: 20px; }
+
+@media (max-width: 600px) {
+  .card-area { height: 200px; }
+  .card-word { font-size: 1.5rem; }
+  .scenario-grid { grid-template-columns: 1fr 1fr; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-top">
+    <div>
+      <h1>🇮🇹 Italiano — Pratica Interattiva</h1>
+      <p>Flashcards e simulatore di conversazioni</p>
+    </div>
+    <a href="index.html" class="header-link">
+      ← Torna alla Guida
+    </a>
+  </div>
+  <nav class="nav-tabs">
+    <button class="nav-btn active" onclick="showPage('flashcards', this)">🃏 Flashcards</button>
+    <button class="nav-btn" onclick="showPage('simulador', this)">💬 Simulatore</button>
+  </nav>
+</header>
+
+<!-- ════════ FLASHCARDS ════════ -->
+<div id="flashcards" class="page active">
+  <h2>Flashcards</h2>
+  <p class="subtitle">Clique na carta para revelar a resposta, depois avalie se acertou.</p>
+
+  <div class="fc-controls">
+    <select id="deck-select" onchange="loadDeck()">
+      <option value="saudacoes">🗣️ Saudações e cortesia</option>
+      <option value="familia">👨‍👩‍👧 Família</option>
+      <option value="comida">🍕 Comida e bebida</option>
+      <option value="numeros">🔢 Números</option>
+      <option value="verbos">⚡ Verbos essenciais</option>
+      <option value="adjetivos">🎨 Adjetivos comuns</option>
+      <option value="frases">💡 Frases do dia a dia</option>
+      <option value="lugares">📍 Lugares e direções</option>
+      <option value="riflessivi">🪞 Verbi Riflessivi</option>
+    </select>
+    <button class="btn-action btn-pular" onclick="shuffleDeck()" style="padding:8px 16px">🔀 Embaralhar</button>
+  </div>
+
+  <div class="fc-stats">
+    <div class="fc-stat rem"><strong id="st-rem">0</strong>Restantes</div>
+    <div class="fc-stat ok"><strong id="st-ok">0</strong>Acertos</div>
+    <div class="fc-stat nok"><strong id="st-nok">0</strong>Erros</div>
+  </div>
+
+  <div class="fc-progress-bar"><div class="fc-progress-fill" id="fc-bar" style="width:0%"></div></div>
+  <p class="fc-progress-label" id="fc-prog-label">Carta 0 de 0</p>
+
+  <div class="card-area" id="card-area" onclick="flipCard()">
+    <div class="card-inner" id="card-inner">
+      <div class="card-face card-front">
+        <div class="card-label">Português</div>
+        <div class="card-word" id="cf-word">—</div>
+        <div class="card-sub" id="cf-sub"></div>
+        <div class="card-tip">Clique para ver em italiano</div>
+      </div>
+      <div class="card-face card-back">
+        <div class="card-label" style="color:rgba(255,255,255,0.5)">Italiano</div>
+        <div class="card-word" id="cb-word">—</div>
+        <div class="card-sub" id="cb-sub" style="color:rgba(255,255,255,0.7)"></div>
+        <div class="card-tip" style="color:rgba(255,255,255,0.4)">Como foi?</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card-actions" id="card-actions" style="display:none">
+    <button class="btn-action btn-errei" onclick="answer(false)">✗ Errei</button>
+    <button class="btn-action btn-pular" onclick="nextCard()">→ Pular</button>
+    <button class="btn-action btn-acertei" onclick="answer(true)">✓ Acertei</button>
+  </div>
+
+  <div class="fc-done" id="fc-done">
+    <h3>Baralho concluído! 🎉</h3>
+    <div class="score" id="fc-score-pct">—</div>
+    <p id="fc-score-msg"></p>
+    <button class="btn-restart" onclick="restartDeck()">Reiniciar baralho</button>
+    <button class="btn-restart" style="background:var(--purple);margin-left:8px" onclick="reviewWrong()">Revisar erros</button>
+  </div>
+</div>
+
+<!-- ════════ SIMULADOR ════════ -->
+<div id="simulador" class="page">
+  <h2>Simulador de Conversas</h2>
+  <p class="subtitle">Escolha um cenário e pratique como em uma situação real.</p>
+
+  <div class="scenario-grid" id="scenario-grid"></div>
+
+  <div class="chat-box" id="chat-box">
+    <div class="chat-header">
+      <div class="chat-avatar" id="chat-av">☕</div>
+      <div class="chat-header-info">
+        <h4 id="chat-name">—</h4>
+        <p id="chat-place">—</p>
+      </div>
+    </div>
+    <div class="sim-score">
+      <div class="sim-score-item ok">Acertos: <span id="sim-ok">0</span></div>
+      <div class="sim-score-item nok">Erros: <span id="sim-nok">0</span></div>
+    </div>
+    <div class="chat-messages" id="chat-messages"></div>
+    <div class="chat-options" id="chat-options">
+      <p>Escolha sua resposta:</p>
+      <div class="options-list" id="options-list"></div>
+      <div class="feedback-msg" id="sim-feedback"></div>
+    </div>
+    <div class="chat-end" id="chat-end">
+      <h4 id="chat-end-title">Conversa concluída!</h4>
+      <p id="chat-end-msg"></p>
+      <button class="btn-new-scenario" onclick="resetScenario()">Escolher outro cenário</button>
+      <button class="btn-retry" onclick="replayScenario()">Repetir</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ════════════════════════════════
+// FLASHCARDS DATA
+// ════════════════════════════════
+const decks = {
+  saudacoes: [
+    { pt: "Olá! / Oi!", it: "Ciao!", hint: "informal, também serve como tchau" },
+    { pt: "Bom dia!", it: "Buongiorno!", hint: "" },
+    { pt: "Boa tarde / Boa noite", it: "Buonasera!", hint: "usa-se a partir do final da tarde" },
+    { pt: "Boa noite (ao dormir)", it: "Buonanotte!", hint: "" },
+    { pt: "Como você está? (informal)", it: "Come stai?", hint: "" },
+    { pt: "Como você está? (formal)", it: "Come sta?", hint: "" },
+    { pt: "Bem, obrigado! E você?", it: "Bene, grazie! E tu?", hint: "" },
+    { pt: "Até logo! (formal)", it: "Arrivederci!", hint: "" },
+    { pt: "Até mais! (informal)", it: "A presto!", hint: "" },
+    { pt: "Por favor", it: "Per favore", hint: "ou: per piacere" },
+    { pt: "Obrigado/a", it: "Grazie", hint: "" },
+    { pt: "Muitíssimo obrigado", it: "Grazie mille", hint: "lit. 'mil obrigados'" },
+    { pt: "De nada", it: "Prego", hint: "também significa 'pode entrar'" },
+    { pt: "Desculpe (informal)", it: "Scusa", hint: "" },
+    { pt: "Desculpe (formal)", it: "Scusi", hint: "" },
+    { pt: "Sinto muito", it: "Mi dispiace", hint: "" },
+    { pt: "Com licença", it: "Permesso", hint: "" },
+    { pt: "Me chamo... / Meu nome é...", it: "Mi chiamo...", hint: "" },
+  ],
+  familia: [
+    { pt: "pai", it: "il padre / papà", hint: "" },
+    { pt: "mãe", it: "la madre / mamma", hint: "" },
+    { pt: "irmão", it: "il fratello", hint: "" },
+    { pt: "irmã", it: "la sorella", hint: "" },
+    { pt: "filho", it: "il figlio", hint: "" },
+    { pt: "filha", it: "la figlia", hint: "" },
+    { pt: "avô", it: "il nonno", hint: "" },
+    { pt: "avó", it: "la nonna", hint: "" },
+    { pt: "tio", it: "lo zio", hint: "" },
+    { pt: "tia", it: "la zia", hint: "" },
+    { pt: "primo / prima", it: "il cugino / la cugina", hint: "" },
+    { pt: "marido", it: "il marito", hint: "" },
+    { pt: "esposa", it: "la moglie", hint: "" },
+    { pt: "sobrinho / neto", it: "il nipote", hint: "mesmo termo para os dois!" },
+    { pt: "genro", it: "il genero", hint: "" },
+    { pt: "nora", it: "la nuora", hint: "" },
+  ],
+  comida: [
+    { pt: "pão", it: "il pane", hint: "" },
+    { pt: "massa / macarrão", it: "la pasta", hint: "" },
+    { pt: "pizza", it: "la pizza", hint: "" },
+    { pt: "arroz", it: "il riso", hint: "" },
+    { pt: "carne", it: "la carne", hint: "" },
+    { pt: "peixe", it: "il pesce", hint: "" },
+    { pt: "queijo", it: "il formaggio", hint: "" },
+    { pt: "ovo", it: "l'uovo (pl. le uova)", hint: "plural irregular!" },
+    { pt: "tomate", it: "il pomodoro", hint: "lit. 'maçã dourada'" },
+    { pt: "alho", it: "l'aglio", hint: "" },
+    { pt: "azeite", it: "l'olio d'oliva", hint: "" },
+    { pt: "café", it: "il caffè", hint: "" },
+    { pt: "água", it: "l'acqua", hint: "" },
+    { pt: "vinho", it: "il vino", hint: "" },
+    { pt: "cerveja", it: "la birra", hint: "" },
+    { pt: "sorvete", it: "il gelato", hint: "" },
+    { pt: "bolo", it: "la torta", hint: "" },
+    { pt: "fruta", it: "la frutta", hint: "coletivo" },
+  ],
+  numeros: [
+    { pt: "zero", it: "zero", hint: "" },
+    { pt: "um / uma", it: "uno / una", hint: "" },
+    { pt: "dois / duas", it: "due", hint: "invariável" },
+    { pt: "três", it: "tre", hint: "" },
+    { pt: "quatro", it: "quattro", hint: "" },
+    { pt: "cinco", it: "cinque", hint: "" },
+    { pt: "seis", it: "sei", hint: "" },
+    { pt: "sete", it: "sette", hint: "" },
+    { pt: "oito", it: "otto", hint: "" },
+    { pt: "nove", it: "nove", hint: "" },
+    { pt: "dez", it: "dieci", hint: "" },
+    { pt: "vinte", it: "venti", hint: "" },
+    { pt: "trinta", it: "trenta", hint: "" },
+    { pt: "cem", it: "cento", hint: "" },
+    { pt: "mil", it: "mille", hint: "pl: mila" },
+    { pt: "primeiro / primeira", it: "primo / prima", hint: "" },
+    { pt: "segundo / segunda", it: "secondo / seconda", hint: "" },
+  ],
+  verbos: [
+    { pt: "ser / estar (eu sou)", it: "essere → sono", hint: "" },
+    { pt: "ter (eu tenho)", it: "avere → ho", hint: "" },
+    { pt: "ir (eu vou)", it: "andare → vado", hint: "" },
+    { pt: "vir (eu venho)", it: "venire → vengo", hint: "" },
+    { pt: "fazer (eu faço)", it: "fare → faccio", hint: "" },
+    { pt: "falar (eu falo)", it: "parlare → parlo", hint: "" },
+    { pt: "comer (eu como)", it: "mangiare → mangio", hint: "" },
+    { pt: "beber (eu bebo)", it: "bere → bevo", hint: "" },
+    { pt: "dormir (eu durmo)", it: "dormire → dormo", hint: "" },
+    { pt: "querer (eu quero)", it: "volere → voglio", hint: "" },
+    { pt: "poder (eu posso)", it: "potere → posso", hint: "" },
+    { pt: "dever (eu devo)", it: "dovere → devo", hint: "" },
+    { pt: "saber (eu sei)", it: "sapere → so", hint: "" },
+    { pt: "ver (eu vejo)", it: "vedere → vedo", hint: "" },
+    { pt: "ler (eu leio)", it: "leggere → leggo", hint: "" },
+    { pt: "escrever (eu escrevo)", it: "scrivere → scrivo", hint: "" },
+    { pt: "sair (eu saio)", it: "uscire → esco", hint: "" },
+    { pt: "entender (eu entendo)", it: "capire → capisco", hint: "grupo -isc-" },
+  ],
+  adjetivos: [
+    { pt: "bonito / bonita", it: "bello / bella", hint: "" },
+    { pt: "feio / feia", it: "brutto / brutta", hint: "" },
+    { pt: "grande", it: "grande", hint: "invariável no gênero" },
+    { pt: "pequeno / pequena", it: "piccolo / piccola", hint: "" },
+    { pt: "bom / boa", it: "buono / buona", hint: "" },
+    { pt: "mau / má", it: "cattivo / cattiva", hint: "" },
+    { pt: "novo / nova", it: "nuovo / nuova", hint: "" },
+    { pt: "velho / velha", it: "vecchio / vecchia", hint: "" },
+    { pt: "rápido / rápida", it: "veloce", hint: "invariável no gênero" },
+    { pt: "lento / lenta", it: "lento / lenta", hint: "" },
+    { pt: "fácil", it: "facile", hint: "invariável no gênero" },
+    { pt: "difícil", it: "difficile", hint: "invariável no gênero" },
+    { pt: "caro / cara", it: "caro / cara", hint: "" },
+    { pt: "barato / barata", it: "economico / economica", hint: "" },
+    { pt: "quente", it: "caldo / calda", hint: "" },
+    { pt: "frio / fria", it: "freddo / fredda", hint: "" },
+    { pt: "feliz", it: "felice", hint: "invariável no gênero" },
+    { pt: "triste", it: "triste", hint: "invariável no gênero" },
+  ],
+  frases: [
+    { pt: "Não entendo.", it: "Non capisco.", hint: "" },
+    { pt: "Pode repetir?", it: "Può ripetere?", hint: "formal" },
+    { pt: "Fala mais devagar?", it: "Parla più lentamente?", hint: "" },
+    { pt: "Como se diz...?", it: "Come si dice...?", hint: "" },
+    { pt: "Quanto custa?", it: "Quanto costa?", hint: "" },
+    { pt: "Onde fica...?", it: "Dov'è...?", hint: "" },
+    { pt: "Quero um/uma...", it: "Vorrei un/una...", hint: "forma educada" },
+    { pt: "A conta, por favor.", it: "Il conto, per favore.", hint: "" },
+    { pt: "Está delicioso!", it: "È delizioso!", hint: "" },
+    { pt: "Que horas são?", it: "Che ore sono?", hint: "" },
+    { pt: "Que dia é hoje?", it: "Che giorno è oggi?", hint: "" },
+    { pt: "Vire à direita.", it: "Giri a destra.", hint: "" },
+    { pt: "Vire à esquerda.", it: "Giri a sinistra.", hint: "" },
+    { pt: "Siga em frente.", it: "Vada dritto.", hint: "" },
+    { pt: "Estou perdido/a.", it: "Mi sono perso/a.", hint: "" },
+    { pt: "Preciso de ajuda.", it: "Ho bisogno di aiuto.", hint: "" },
+  ],
+  riflessivi: [
+    { pt: "acordar (eu acordo)", it: "svegliarsi → mi sveglio", hint: "sempre com essere no passato" },
+    { pt: "levantar-se (eu me levanto)", it: "alzarsi → mi alzo", hint: "" },
+    { pt: "lavar-se (eu me lavo)", it: "lavarsi → mi lavo", hint: "" },
+    { pt: "tomar banho", it: "farsi la doccia → mi faccio la doccia", hint: "lit. fazer o chuveiro" },
+    { pt: "vestir-se (eu me visto)", it: "vestirsi → mi vesto", hint: "" },
+    { pt: "pentear-se", it: "pettinarsi → mi pettino", hint: "" },
+    { pt: "sentar-se (eu me sento)", it: "sedersi → mi siedo", hint: "irregular!" },
+    { pt: "deitar-se", it: "sdraiarsi → mi sdraio", hint: "" },
+    { pt: "adormecer", it: "addormentarsi → mi addormento", hint: "" },
+    { pt: "descansar", it: "riposarsi → mi riposo", hint: "" },
+    { pt: "divertir-se", it: "divertirsi → mi diverto", hint: "" },
+    { pt: "chamar-se", it: "chiamarsi → mi chiamo", hint: "ex: Mi chiamo Ana" },
+    { pt: "sentir-se", it: "sentirsi → mi sento", hint: "ex: Mi sento bene" },
+    { pt: "apressar-se", it: "sbrigarsi → mi sbrigho", hint: "Sbrigati! = Se apresse!" },
+    { pt: "parar-se / ficar", it: "fermarsi → mi fermo", hint: "" },
+    { pt: "apaixonar-se", it: "innamorarsi → mi innamoro", hint: "ex: Mi sono innamorato/a" },
+    { pt: "casar-se", it: "sposarsi → mi sposo", hint: "" },
+    { pt: "conhecer-se (mutuamente)", it: "conoscersi → ci conosciamo", hint: "uso recíproco" },
+    { pt: "pronome reflexivo — eu", it: "mi", hint: "mi lavo, mi alzo..." },
+    { pt: "pronome reflexivo — você", it: "ti", hint: "ti alzi, ti chiami..." },
+    { pt: "pronome reflexivo — ele/ela", it: "si", hint: "si veste, si sveglia..." },
+    { pt: "pronome reflexivo — nós", it: "ci", hint: "ci laviamo, ci divertiamo..." },
+    { pt: "pronome reflexivo — vocês", it: "vi", hint: "vi alzate, vi vestite..." },
+    { pt: "pronome reflexivo — eles", it: "si", hint: "si alzano, si salutano..." },
+  ],
+  lugares: [
+    { pt: "a estação (trem/metrô)", it: "la stazione", hint: "" },
+    { pt: "o aeroporto", it: "l'aeroporto", hint: "" },
+    { pt: "o hotel", it: "l'albergo / l'hotel", hint: "" },
+    { pt: "o restaurante", it: "il ristorante", hint: "" },
+    { pt: "o bar / café", it: "il bar", hint: "em IT, bar serve também café" },
+    { pt: "o supermercado", it: "il supermercato", hint: "" },
+    { pt: "a farmácia", it: "la farmacia", hint: "" },
+    { pt: "o hospital", it: "l'ospedale", hint: "" },
+    { pt: "o banco", it: "la banca", hint: "" },
+    { pt: "a chiesa", it: "la chiesa", hint: "a Igreja" },
+    { pt: "o museu", it: "il museo", hint: "" },
+    { pt: "a praia", it: "la spiaggia", hint: "" },
+    { pt: "a praça", it: "la piazza", hint: "" },
+    { pt: "a rua", it: "la via / la strada", hint: "" },
+    { pt: "a esquerda", it: "a sinistra", hint: "" },
+    { pt: "a direita", it: "a destra", hint: "" },
+    { pt: "em frente", it: "dritto / diritto", hint: "" },
+  ],
+};
+
+// ─── FLASHCARD STATE ───
+let currentDeck = [];
+let cardIndex = 0;
+let okCount = 0;
+let nokCount = 0;
+let isFlipped = false;
+let wrongCards = [];
+
+function loadDeck() {
+  const key = document.getElementById('deck-select').value;
+  currentDeck = [...decks[key]];
+  cardIndex = 0; okCount = 0; nokCount = 0; wrongCards = [];
+  isFlipped = false;
+  document.getElementById('fc-done').classList.remove('show');
+  document.getElementById('card-area').style.display = '';
+  document.getElementById('card-actions').style.display = 'none';
+  updateStats();
+  showCard();
+}
+
+function shuffleDeck() {
+  currentDeck.sort(() => Math.random() - 0.5);
+  cardIndex = 0; okCount = 0; nokCount = 0; wrongCards = [];
+  isFlipped = false;
+  document.getElementById('fc-done').classList.remove('show');
+  document.getElementById('card-area').style.display = '';
+  document.getElementById('card-actions').style.display = 'none';
+  updateStats();
+  showCard();
+}
+
+function showCard() {
+  if (cardIndex >= currentDeck.length) { showDeckDone(); return; }
+  const c = currentDeck[cardIndex];
+  document.getElementById('cf-word').textContent = c.pt;
+  document.getElementById('cf-sub').textContent = '';
+  document.getElementById('cb-word').textContent = c.it;
+  document.getElementById('cb-sub').textContent = c.hint ? '💡 ' + c.hint : '';
+  const area = document.getElementById('card-area');
+  area.classList.remove('flipped');
+  isFlipped = false;
+  document.getElementById('card-actions').style.display = 'none';
+  updateProgress();
+}
+
+function flipCard() {
+  if (isFlipped) return;
+  isFlipped = true;
+  document.getElementById('card-area').classList.add('flipped');
+  setTimeout(() => {
+    document.getElementById('card-actions').style.display = 'flex';
+  }, 300);
+}
+
+function answer(correct) {
+  if (correct) okCount++;
+  else { nokCount++; wrongCards.push(currentDeck[cardIndex]); }
+  cardIndex++;
+  updateStats();
+  isFlipped = false;
+  document.getElementById('card-area').classList.remove('flipped');
+  document.getElementById('card-actions').style.display = 'none';
+  setTimeout(showCard, 350);
+}
+
+function nextCard() {
+  cardIndex++;
+  isFlipped = false;
+  document.getElementById('card-area').classList.remove('flipped');
+  document.getElementById('card-actions').style.display = 'none';
+  setTimeout(showCard, 350);
+}
+
+function updateStats() {
+  const total = currentDeck.length;
+  const done = okCount + nokCount;
+  document.getElementById('st-rem').textContent = total - cardIndex;
+  document.getElementById('st-ok').textContent = okCount;
+  document.getElementById('st-nok').textContent = nokCount;
+}
+
+function updateProgress() {
+  const total = currentDeck.length;
+  const pct = total > 0 ? (cardIndex / total * 100).toFixed(0) : 0;
+  document.getElementById('fc-bar').style.width = pct + '%';
+  document.getElementById('fc-prog-label').textContent = `Carta ${cardIndex + 1} de ${total}`;
+}
+
+function showDeckDone() {
+  document.getElementById('card-area').style.display = 'none';
+  document.getElementById('card-actions').style.display = 'none';
+  const total = okCount + nokCount;
+  const pct = total > 0 ? Math.round(okCount / total * 100) : 0;
+  document.getElementById('fc-score-pct').textContent = pct + '%';
+  const msgs = ['Continue praticando! 💪', 'Bom progresso! 📖', 'Muito bem! 👍', 'Perfeito! Sei bravo/a! 🎉'];
+  document.getElementById('fc-score-msg').textContent = msgs[Math.min(Math.floor(pct / 25), 3)];
+  document.getElementById('fc-done').classList.add('show');
+  document.getElementById('fc-bar').style.width = '100%';
+  document.getElementById('fc-prog-label').textContent = `Concluído — ${okCount} acertos de ${total}`;
+}
+
+function restartDeck() {
+  loadDeck();
+}
+
+function reviewWrong() {
+  if (wrongCards.length === 0) { alert('Nenhum erro para revisar!'); return; }
+  currentDeck = [...wrongCards];
+  cardIndex = 0; okCount = 0; nokCount = 0; wrongCards = [];
+  isFlipped = false;
+  document.getElementById('fc-done').classList.remove('show');
+  document.getElementById('card-area').style.display = '';
+  document.getElementById('card-actions').style.display = 'none';
+  updateStats();
+  showCard();
+}
+
+// ════════════════════════════════
+// SIMULADOR DATA
+// ════════════════════════════════
+const scenarios = [
+  {
+    id: 'bar',
+    icon: '☕',
+    title: 'No Bar / Café',
+    desc: 'Peça um café e uma água',
+    avatar: '☕',
+    name: 'Giulia',
+    place: 'Bar Venezia',
+    steps: [
+      {
+        them: { text: "Buongiorno! Cosa desidera?", tr: "Bom dia! O que deseja?" },
+        options: [
+          { it: "Un caffè, per favore.", pt: "Um café, por favor.", correct: true },
+          { it: "Dov'è la stazione?", pt: "Onde fica a estação?", correct: false, why: "Esta é uma pergunta sobre direções, não um pedido no café." },
+          { it: "Mi chiamo Marco.", pt: "Meu nome é Marco.", correct: false, why: "Apresentar-se não é o esperado aqui — ela quer saber o seu pedido." },
+        ],
+        feedback: "Ottimo! 'Per favore' torna o pedido mais educado.",
+      },
+      {
+        them: { text: "Subito! Vuole anche qualcosa da mangiare?", tr: "Um momento! Quer também algo para comer?" },
+        options: [
+          { it: "Sì, un cornetto, per favore.", pt: "Sim, um croissant, por favor.", correct: true },
+          { it: "No, grazie.", pt: "Não, obrigado/a.", correct: true },
+          { it: "Buonanotte!", pt: "Boa noite!", correct: false, why: "'Buonanotte' é uma despedida para quando se vai dormir — não combina aqui." },
+        ],
+        feedback: "Bene! 'Sì' ou 'No, grazie' — ambos são respostas perfeitas!",
+      },
+      {
+        them: { text: "Ecco a Lei. Altro?", tr: "Aqui está. Mais alguma coisa?" },
+        options: [
+          { it: "No, grazie. Il conto, per favore.", pt: "Não, obrigado. A conta, por favor.", correct: true },
+          { it: "Sì, un'acqua naturale, per favore.", pt: "Sim, uma água sem gás, por favor.", correct: true },
+          { it: "Come stai?", pt: "Como você está?", correct: false, why: "'Come stai' é informal e usado com amigos — aqui você está num bar com um funcionário." },
+        ],
+        feedback: "Perfetto! 'Il conto, per favore' é essencial em qualquer bar italiano.",
+      },
+    ],
+    ending: { title: "Benvenuto al bar italiano! ☕", msg: "Você pediu como um verdadeiro italiano. In Italia si fa così!" }
+  },
+  {
+    id: 'direzioni',
+    icon: '🗺️',
+    title: 'Pedir Direções',
+    desc: 'Encontre a estação de trem',
+    avatar: '👴',
+    name: 'Signor Rossi',
+    place: 'Via Roma',
+    steps: [
+      {
+        them: { text: "Buongiorno!", tr: "Bom dia!" },
+        options: [
+          { it: "Buongiorno! Scusi, dov'è la stazione?", pt: "Bom dia! Com licença, onde fica a estação?", correct: true },
+          { it: "Ciao! Come stai?", pt: "Oi! Como vai?", correct: false, why: "'Ciao' e 'Come stai' são informais. Com um desconhecido mais velho, use 'Buongiorno' e 'Scusi'." },
+          { it: "Vorrei un caffè.", pt: "Eu queria um café.", correct: false, why: "Você precisa pedir direções, não café." },
+        ],
+        feedback: "Bene! 'Scusi' é o formal de 'scusa' — sempre use com desconhecidos.",
+      },
+      {
+        them: { text: "La stazione? Allora... vada dritto e poi giri a sinistra.", tr: "A estação? Então... siga em frente e depois vire à esquerda." },
+        options: [
+          { it: "Grazie mille! E quanto dista?", pt: "Muitíssimo obrigado! E fica longe?", correct: true },
+          { it: "Prego!", pt: "De nada!", correct: false, why: "'Prego' é a resposta para 'grazie' — você ainda não agradeceu, então não faz sentido aqui." },
+          { it: "Mi dispiace.", pt: "Sinto muito.", correct: false, why: "'Mi dispiace' expressa pena ou desculpa — não é a reação esperada a uma ajuda." },
+        ],
+        feedback: "'Quanto dista?' — muito útil para saber se fica perto!",
+      },
+      {
+        them: { text: "È a cinque minuti a piedi.", tr: "Fica a cinco minutos a pé." },
+        options: [
+          { it: "Perfetto! Grazie e arrivederci!", pt: "Ótimo! Obrigado e até logo!", correct: true },
+          { it: "Non capisco. Può ripetere?", pt: "Não entendo. Pode repetir?", correct: true },
+          { it: "Il conto, per favore.", pt: "A conta, por favor.", correct: false, why: "Pedir a conta aqui não faz sentido — você está na rua pedindo direções!" },
+        ],
+        feedback: "Ottimo! 'Arrivederci' é a despedida formal correta neste contexto.",
+      },
+    ],
+    ending: { title: "Trovi la stazione! 🚉", msg: "Você pediu direções com educação e clareza. Bravo/a!" }
+  },
+  {
+    id: 'apresentacao',
+    icon: '🤝',
+    title: 'Apresentar-se',
+    desc: 'Conheça um novo amigo',
+    avatar: '👩',
+    name: 'Sofia',
+    place: 'Corso di italiano',
+    steps: [
+      {
+        them: { text: "Ciao! Mi chiamo Sofia. E tu?", tr: "Oi! Meu nome é Sofia. E você?" },
+        options: [
+          { it: "Ciao! Mi chiamo Ana. Piacere!", pt: "Oi! Meu nome é Ana. Prazer!", correct: true },
+          { it: "Buonasera, signora.", pt: "Boa noite, senhora.", correct: false, why: "Sofia usou 'Ciao' — é informal. 'Buonasera signora' seria excessivamente formal." },
+          { it: "Il conto, per favore.", pt: "A conta, por favor.", correct: false, why: "Isso é para o restaurante — aqui você está se apresentando!" },
+        ],
+        feedback: "'Piacere!' significa 'prazer em conhecê-la' — sempre útil em apresentações!",
+      },
+      {
+        them: { text: "Piacere anche mio! Di dove sei?", tr: "O prazer é meu! De onde você é?" },
+        options: [
+          { it: "Sono brasiliana/o, di São Paulo.", pt: "Sou brasileiro/a, de São Paulo.", correct: true },
+          { it: "Sono stanca/o.", pt: "Estou cansada/o.", correct: false, why: "Ela perguntou sua origem ('di dove sei'), não como você está." },
+          { it: "Ho venticinque anni.", pt: "Tenho vinte e cinco anos.", correct: false, why: "Ela perguntou de onde você é, não a sua idade." },
+        ],
+        feedback: "'Di dove sei?' — 'de onde você é?'. Responde-se com 'Sono di...' ou 'Sono + nacionalidade'.",
+      },
+      {
+        them: { text: "Che bello! Parli italiano da quanto tempo?", tr: "Que legal! Há quanto tempo você fala italiano?" },
+        options: [
+          { it: "Solo da poco! Sto imparando.", pt: "Só há pouco tempo! Estou aprendendo.", correct: true },
+          { it: "Parlo italiano molto bene!", pt: "Falo italiano muito bem!", correct: true },
+          { it: "Arrivederci!", pt: "Até logo!", correct: false, why: "Despedir-se no meio de uma conversa boa seria muito estranho." },
+        ],
+        feedback: "'Sto imparando' = 'estou aprendendo' — honesto e humilde, os italianos adoram!",
+      },
+    ],
+    ending: { title: "Nuova amica! 🤝", msg: "Você se apresentou perfeitamente em italiano. Amizade garantida!" }
+  },
+  {
+    id: 'farmacia',
+    icon: '💊',
+    title: 'Na Farmácia',
+    desc: 'Compre um remédio',
+    avatar: '👨‍⚕️',
+    name: 'Dottor Bianchi',
+    place: 'Farmacia Centrale',
+    steps: [
+      {
+        them: { text: "Buongiorno! Come posso aiutarla?", tr: "Bom dia! Como posso ajudá-lo/a?" },
+        options: [
+          { it: "Buongiorno. Ho mal di testa. Ha qualcosa?", pt: "Bom dia. Estou com dor de cabeça. Tem alguma coisa?", correct: true },
+          { it: "Vorrei un gelato, per favore.", pt: "Queria um sorvete, por favor.", correct: false, why: "Sorvete é numa gelateria, não numa farmácia!" },
+          { it: "Dov'è il bagno?", pt: "Onde fica o banheiro?", correct: false, why: "Você foi à farmácia para comprar remédio, não procurar banheiro." },
+        ],
+        feedback: "'Ho mal di...' é muito útil: mal di testa (dor de cabeça), mal di stomaco (dor de estômago), mal di gola (dor de garganta).",
+      },
+      {
+        them: { text: "Certo. Ha allergie a qualche medicinale?", tr: "Claro. Você tem alergia a algum medicamento?" },
+        options: [
+          { it: "No, nessuna allergia.", pt: "Não, nenhuma alergia.", correct: true },
+          { it: "Sì, sono allergico/a alla penicillina.", pt: "Sim, sou alérgico/a à penicilina.", correct: true },
+          { it: "Non lo so.", pt: "Não sei.", correct: true },
+        ],
+        feedback: "Todas são respostas válidas! 'Nessuna' = nenhuma/alguma.",
+      },
+      {
+        them: { text: "Le consiglio questa tachipirina. Due compresse ogni sei ore.", tr: "Recomendo este Tylenol. Dois comprimidos a cada seis horas." },
+        options: [
+          { it: "Grazie. Quanto costa?", pt: "Obrigado/a. Quanto custa?", correct: true },
+          { it: "Va bene, grazie mille!", pt: "Tudo bem, muitíssimo obrigado!", correct: true },
+          { it: "Scusa, non ho capito. Può ripetere lentamente?", pt: "Desculpe, não entendi. Pode repetir devagar?", correct: true },
+        ],
+        feedback: "Perfeito! Pedir para repetir devagar ('lentamente') é completamente normal e os italianos ficam felizes em ajudar.",
+      },
+    ],
+    ending: { title: "Presto guarito/a! 💊", msg: "Você se comunicou muito bem na farmácia. Que recuperação rápida!" }
+  },
+  {
+    id: 'ristorante',
+    icon: '🍽️',
+    title: 'No Restaurante',
+    desc: 'Jante num restaurante italiano',
+    avatar: '🧑‍🍳',
+    name: 'Marco',
+    place: 'Trattoria da Luigi',
+    steps: [
+      {
+        them: { text: "Buonasera! Ha la prenotazione?", tr: "Boa noite! Tem reserva?" },
+        options: [
+          { it: "Sì, a nome Rossi.", pt: "Sim, em nome de Rossi.", correct: true },
+          { it: "No, siamo in due. C'è un tavolo libero?", pt: "Não, somos dois. Tem uma mesa livre?", correct: true },
+          { it: "Grazie, arrivederci!", pt: "Obrigado, até logo!", correct: false, why: "Despedir-se logo na entrada não faz muito sentido!" },
+        ],
+        feedback: "'Siamo in due/tre/quattro' — diga quantos são. 'Tavolo libero' = mesa disponível.",
+      },
+      {
+        them: { text: "Prego, accomodatevi! Ecco il menù.", tr: "Por favor, sentem-se! Aqui está o cardápio." },
+        options: [
+          { it: "Grazie! Cosa ci consiglia?", pt: "Obrigado! O que nos recomenda?", correct: true },
+          { it: "Il conto, per favore.", pt: "A conta, por favor.", correct: false, why: "Você acabou de chegar e ainda nem pediu — a conta vem no final!" },
+          { it: "Dov'è la stazione?", pt: "Onde fica a estação?", correct: false, why: "Isso é para pedir direções, não para o restaurante." },
+        ],
+        feedback: "'Cosa ci consiglia?' é ótimo para pedir recomendações — os italianos adoram sugerir!",
+      },
+      {
+        them: { text: "Per primo, suggerisco le tagliatelle al ragù. Sono ottime!", tr: "Como primeiro prato, sugiro as tagliatelle ao ragù. São ótimas!" },
+        options: [
+          { it: "Perfetto! Prendo quello. E da bere, acqua naturale.", pt: "Ótimo! Vou pegar esse. E para beber, água sem gás.", correct: true },
+          { it: "Ho mal di testa.", pt: "Estou com dor de cabeça.", correct: false, why: "Isso é para a farmácia — aqui você está pedindo comida!" },
+          { it: "Non mangio la pasta. Ha qualcosa di diverso?", pt: "Não como massa. Tem algo diferente?", correct: true },
+        ],
+        feedback: "'Prendo quello' = 'vou levar esse/a' — muito natural na hora de pedir!",
+      },
+    ],
+    ending: { title: "Buon appetito! 🍝", msg: "Jantou como um verdadeiro turista experiente na Itália. Magnifico!" }
+  },
+  {
+    id: 'acquisti',
+    icon: '🛍️',
+    title: 'Fazer Compras',
+    desc: 'Compre uma lembrança',
+    avatar: '👩‍💼',
+    name: 'Valentina',
+    place: 'Boutique Firenze',
+    steps: [
+      {
+        them: { text: "Buongiorno! Posso aiutarla?", tr: "Bom dia! Posso ajudá-la?" },
+        options: [
+          { it: "Sì, sto cercando un regalo.", pt: "Sim, estou procurando um presente.", correct: true },
+          { it: "No, sto solo guardando, grazie.", pt: "Não, estou só olhando, obrigado/a.", correct: true },
+          { it: "Mi dispiace.", pt: "Sinto muito.", correct: false, why: "'Mi dispiace' expressa pena — não é a resposta certa quando um vendedor pergunta se pode ajudar." },
+        ],
+        feedback: "'Sto solo guardando' — 'estou só olhando' — clássico para quando não quer ser incomodado!",
+      },
+      {
+        them: { text: "Ottimo! Questo foulard è bellissimo e molto italiano.", tr: "Ótimo! Este lenço é lindo e muito italiano." },
+        options: [
+          { it: "Quanto costa?", pt: "Quanto custa?", correct: true },
+          { it: "Posso provarlo?", pt: "Posso experimentar?", correct: true },
+          { it: "Ho bisogno di aiuto!", pt: "Preciso de ajuda!", correct: false, why: "Você já tem ajuda — e 'Ho bisogno di aiuto' soa como emergência!" },
+        ],
+        feedback: "'Quanto costa?' é uma das frases mais úteis em qualquer loja!",
+      },
+      {
+        them: { text: "Costa quarantacinque euro.", tr: "Custa quarenta e cinco euros." },
+        options: [
+          { it: "Lo prendo! Pago con carta.", pt: "Vou levar! Pago com cartão.", correct: true },
+          { it: "È un po' caro. Ha qualcosa di meno caro?", pt: "É um pouco caro. Tem algo mais barato?", correct: true },
+          { it: "Buonanotte!", pt: "Boa noite!", correct: false, why: "'Buonanotte' é para quando se vai dormir — não combina aqui!" },
+        ],
+        feedback: "'Lo prendo' = 'Eu levo' (masc.). Para algo feminino: 'La prendo'. Muito útil nas lojas!",
+      },
+    ],
+    ending: { title: "Shopping fatto! 🛍️", msg: "Você comprou como uma pessoa local. Che stile!" }
+  },
+];
+
+// ─── SIMULADOR STATE ───
+let currentScenario = null;
+let currentStep = 0;
+let simOk = 0;
+let simNok = 0;
+let waitingNext = false;
+
+function buildScenarios() {
+  const grid = document.getElementById('scenario-grid');
+  grid.innerHTML = scenarios.map((s, i) => `
+    <div class="scenario-card" id="sc-${s.id}" onclick="startScenario(${i})">
+      <div class="scenario-icon">${s.icon}</div>
+      <div class="scenario-title">${s.title}</div>
+      <div class="scenario-desc">${s.desc}</div>
+    </div>
+  `).join('');
+}
+
+function startScenario(idx) {
+  currentScenario = scenarios[idx];
+  currentStep = 0; simOk = 0; simNok = 0; waitingNext = false;
+  document.querySelectorAll('.scenario-card').forEach(c => c.classList.remove('active'));
+  document.getElementById('sc-' + currentScenario.id).classList.add('active');
+  document.getElementById('chat-av').textContent = currentScenario.avatar;
+  document.getElementById('chat-name').textContent = currentScenario.name;
+  document.getElementById('chat-place').textContent = currentScenario.place;
+  document.getElementById('chat-messages').innerHTML = '';
+  document.getElementById('chat-options').style.display = '';
+  document.getElementById('chat-end').classList.remove('show');
+  document.getElementById('sim-ok').textContent = '0';
+  document.getElementById('sim-nok').textContent = '0';
+  const box = document.getElementById('chat-box');
+  box.classList.add('show');
+  setTimeout(() => box.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 100);
+  showStep();
+}
+
+function addMsg(cls, name, text, tr) {
+  const msgs = document.getElementById('chat-messages');
+  const avatar = cls === 'them' ? currentScenario.avatar : '🧑';
+  msgs.innerHTML += `
+    <div class="msg ${cls}">
+      <div class="msg-avatar">${avatar}</div>
+      <div>
+        <div class="msg-name">${name}</div>
+        <div class="msg-bubble">${text}</div>
+        ${tr ? `<div class="chat-translation">${tr}</div>` : ''}
+      </div>
+    </div>
+  `;
+  msgs.scrollTop = msgs.scrollHeight;
+}
+
+function showStep() {
+  if (currentStep >= currentScenario.steps.length) { endScenario(); return; }
+  const step = currentScenario.steps[currentStep];
+  setTimeout(() => {
+    addMsg('them', currentScenario.name, step.them.text, step.them.tr);
+    renderOptions(step);
+  }, 400);
+}
+
+function renderOptions(step) {
+  document.getElementById('options-list').innerHTML = step.options.map((o, i) => `
+    <button class="opt-btn" onclick="chooseOption(${i})">
+      ${o.it}
+      <span class="opt-pt">${o.pt}</span>
+    </button>
+  `).join('');
+  document.getElementById('sim-feedback').className = 'feedback-msg';
+  document.getElementById('sim-feedback').textContent = '';
+}
+
+function chooseOption(idx) {
+  if (waitingNext) return;
+  const step = currentScenario.steps[currentStep];
+  const opt = step.options[idx];
+  const btns = document.querySelectorAll('.opt-btn');
+
+  btns.forEach(b => b.disabled = true);
+
+  if (opt.correct) {
+    btns[idx].classList.add('correct');
+    simOk++;
+    showFeedback(true, step.feedback);
+  } else {
+    btns[idx].classList.add('wrong');
+    // highlight correct
+    step.options.forEach((o, i) => { if (o.correct) btns[i].classList.add('correct'); });
+    simNok++;
+    showFeedback(false, opt.why || 'Tente outra resposta da próxima vez!');
+  }
+
+  document.getElementById('sim-ok').textContent = simOk;
+  document.getElementById('sim-nok').textContent = simNok;
+
+  addMsg('me', 'Você', opt.it, opt.pt);
+  waitingNext = true;
+  setTimeout(() => { currentStep++; waitingNext = false; showStep(); }, 1800);
+}
+
+function showFeedback(ok, msg) {
+  const el = document.getElementById('sim-feedback');
+  el.textContent = (ok ? '✓ ' : '✗ ') + msg;
+  el.className = 'feedback-msg show ' + (ok ? 'ok' : 'nok');
+}
+
+function endScenario() {
+  document.getElementById('chat-options').style.display = 'none';
+  const end = currentScenario.ending;
+  document.getElementById('chat-end-title').textContent = end.title;
+  const total = simOk + simNok;
+  const pct = total > 0 ? Math.round(simOk / total * 100) : 100;
+  document.getElementById('chat-end-msg').textContent = `${end.msg} — Acertos: ${simOk}/${total} (${pct}%)`;
+  document.getElementById('chat-end').classList.add('show');
+}
+
+function resetScenario() {
+  currentScenario = null;
+  document.getElementById('chat-box').classList.remove('show');
+  document.querySelectorAll('.scenario-card').forEach(c => c.classList.remove('active'));
+  document.getElementById('chat-options').style.display = '';
+}
+
+function replayScenario() {
+  const s = scenarios.findIndex(x => x.id === currentScenario.id);
+  startScenario(s);
+}
+
+// ─── NAVIGATION ───
+function showPage(id, btn) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+}
+
+// ─── INIT ───
+loadDeck();
+buildScenarios();
+</script>
+</body>
+</html>

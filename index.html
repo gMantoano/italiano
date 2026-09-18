@@ -1,0 +1,1540 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Italiano para Iniciantes — Guia Completo</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@400;500;600&display=swap');
+
+:root {
+  --blu: #1a3a6b;
+  --blu-claro: #2a5298;
+  --blu-suave: #e8edf7;
+  --vermelho: #c0392b;
+  --verde: #1a6b3a;
+  --verde-suave: #e8f5ed;
+  --amarelo: #e8a020;
+  --amarelo-suave: #fef6e4;
+  --roxo: #6b3a8a;
+  --roxo-suave: #f3eef8;
+  --cinza: #f0f2f5;
+  --texto: #1c1c2e;
+  --texto-suave: #555;
+  --borda: #d0d8e8;
+  --branco: #ffffff;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: #f4f6fb;
+  color: var(--texto);
+  min-height: 100vh;
+}
+
+header {
+  background: var(--blu);
+  color: white;
+  padding: 16px 20px 0;
+  border-bottom: 4px solid var(--vermelho);
+}
+
+header h1 {
+  font-family: 'Lora', Georgia, serif;
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin-bottom: 2px;
+}
+
+header p { font-size: 0.8rem; opacity: 0.7; margin-bottom: 0; }
+
+.header-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.header-link {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: rgba(255,255,255,0.15); color: white;
+  border: 2px solid rgba(255,255,255,0.35);
+  padding: 7px 13px; border-radius: 8px;
+  font-family: 'Inter', sans-serif; font-size: 0.78rem; font-weight: 600;
+  text-decoration: none; white-space: nowrap;
+  transition: background 0.2s; flex-shrink: 0;
+}
+.header-link:hover { background: rgba(255,255,255,0.25); }
+
+.tabs {
+  display: flex;
+  gap: 2px;
+  overflow-x: auto;
+  padding-bottom: 0;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+.tabs::-webkit-scrollbar { display: none; }
+
+.tab-btn {
+  background: transparent;
+  border: none;
+  color: rgba(255,255,255,0.6);
+  font-family: 'Inter', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 500;
+  padding: 9px 12px;
+  cursor: pointer;
+  border-radius: 6px 6px 0 0;
+  white-space: nowrap;
+  transition: all 0.2s;
+  border-bottom: 3px solid transparent;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.tab-btn:hover { color: white; background: rgba(255,255,255,0.1); }
+.tab-btn.active {
+  background: #f4f6fb;
+  color: var(--blu);
+  border-bottom: 3px solid var(--vermelho);
+  font-weight: 600;
+}
+
+@media (max-width: 480px) {
+  header { padding: 12px 14px 0; }
+  header h1 { font-size: 1.15rem; }
+  .tab-btn { font-size: 0.72rem; padding: 8px 10px; }
+  .content { padding: 20px 14px; }
+}
+
+.content {
+  max-width: 880px;
+  margin: 0 auto;
+  padding: 28px 20px;
+}
+
+.tab-panel { display: none; }
+.tab-panel.active { display: block; }
+
+h2 {
+  font-family: 'Lora', Georgia, serif;
+  font-size: 1.45rem;
+  color: var(--blu);
+  margin-bottom: 18px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid var(--borda);
+}
+
+h3 {
+  font-family: 'Lora', Georgia, serif;
+  font-size: 1.05rem;
+  color: var(--blu-claro);
+  margin: 26px 0 10px;
+}
+
+p { line-height: 1.7; color: var(--texto-suave); margin-bottom: 10px; font-size: 0.93rem; }
+
+.regra {
+  background: var(--blu-suave);
+  border-left: 4px solid var(--blu-claro);
+  border-radius: 0 8px 8px 0;
+  padding: 12px 16px;
+  margin: 14px 0;
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+.exemplo {
+  background: var(--verde-suave);
+  border-left: 4px solid var(--verde);
+  border-radius: 0 8px 8px 0;
+  padding: 10px 16px;
+  margin: 8px 0;
+  font-style: italic;
+  font-size: 0.9rem;
+}
+
+.exemplo span { font-style: normal; color: var(--texto-suave); font-size: 0.83rem; }
+
+.aviso {
+  background: var(--amarelo-suave);
+  border-left: 4px solid var(--amarelo);
+  border-radius: 0 8px 8px 0;
+  padding: 10px 16px;
+  margin: 14px 0;
+  font-size: 0.88rem;
+}
+
+.dica {
+  background: var(--roxo-suave);
+  border-left: 4px solid var(--roxo);
+  border-radius: 0 8px 8px 0;
+  padding: 10px 16px;
+  margin: 14px 0;
+  font-size: 0.88rem;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 12px 0;
+  font-size: 0.88rem;
+}
+
+th {
+  background: var(--blu);
+  color: white;
+  padding: 9px 12px;
+  text-align: left;
+  font-weight: 500;
+}
+
+td {
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--borda);
+  vertical-align: top;
+}
+
+tr:nth-child(even) td { background: var(--cinza); }
+
+.grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin: 14px 0;
+}
+
+.grid-3 {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 12px;
+  margin: 14px 0;
+}
+
+@media (max-width: 640px) {
+  .grid-2, .grid-3 { grid-template-columns: 1fr; }
+  .tabs { gap: 1px; }
+  .tab-btn { padding: 8px 10px; font-size: 0.75rem; }
+}
+
+.card {
+  background: white;
+  border: 1px solid var(--borda);
+  border-radius: 10px;
+  padding: 16px;
+}
+
+.card h4 {
+  font-family: 'Lora', serif;
+  color: var(--blu);
+  font-size: 0.97rem;
+  margin-bottom: 10px;
+}
+
+.badge {
+  display: inline-block;
+  background: var(--blu);
+  color: white;
+  font-size: 0.68rem;
+  padding: 2px 7px;
+  border-radius: 20px;
+  font-family: 'Inter', sans-serif;
+  margin-right: 4px;
+}
+.badge.verde { background: var(--verde); }
+.badge.vermelho { background: var(--vermelho); }
+.badge.roxo { background: var(--roxo); }
+
+.separador { height: 2px; background: var(--borda); margin: 28px 0; border-radius: 1px; }
+
+/* frase-card para frases do dia a dia */
+.frase-card {
+  background: white;
+  border: 1px solid var(--borda);
+  border-radius: 8px;
+  padding: 12px 16px;
+  margin: 8px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  font-size: 0.9rem;
+}
+.frase-card .it { color: var(--blu-claro); font-weight: 600; }
+.frase-card .pt { color: var(--texto-suave); font-size: 0.83rem; }
+.frase-card .fon { color: var(--roxo); font-size: 0.8rem; font-style: italic; }
+
+/* número grid */
+.num-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  gap: 8px;
+  margin: 12px 0;
+}
+.num-item {
+  background: white;
+  border: 1px solid var(--borda);
+  border-radius: 7px;
+  padding: 8px 10px;
+  text-align: center;
+  font-size: 0.85rem;
+}
+.num-item strong { display: block; color: var(--blu-claro); font-size: 1rem; }
+
+/* som card */
+.som-card {
+  background: white;
+  border: 1px solid var(--borda);
+  border-radius: 8px;
+  padding: 12px 14px;
+  margin: 7px 0;
+}
+.som-card .letra { font-size: 1.2rem; font-weight: 700; color: var(--blu); margin-bottom: 4px; }
+.som-card .descricao { font-size: 0.85rem; color: var(--texto-suave); }
+.som-card .ex { font-size: 0.85rem; color: var(--verde); font-style: italic; margin-top: 3px; }
+
+/* Exercícios */
+.exercicio {
+  background: white;
+  border: 1px solid var(--borda);
+  border-radius: 10px;
+  padding: 18px;
+  margin: 18px 0;
+}
+.exercicio h4 {
+  font-family: 'Lora', serif;
+  color: var(--blu);
+  margin-bottom: 14px;
+  font-size: 0.97rem;
+}
+.questao {
+  margin: 12px 0;
+  padding: 12px;
+  background: var(--cinza);
+  border-radius: 8px;
+}
+.questao p { margin-bottom: 8px; color: var(--texto); font-weight: 500; font-size: 0.9rem; }
+.opcoes { display: flex; flex-wrap: wrap; gap: 7px; }
+.opcao {
+  background: white;
+  border: 2px solid var(--borda);
+  border-radius: 6px;
+  padding: 6px 14px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  font-family: 'Inter', sans-serif;
+  transition: all 0.15s;
+}
+.opcao:hover { border-color: var(--blu-claro); background: var(--blu-suave); }
+.opcao.correta { background: var(--verde-suave); border-color: var(--verde); color: var(--verde); font-weight: 600; }
+.opcao.errada { background: #fdecea; border-color: var(--vermelho); color: var(--vermelho); }
+.feedback { margin-top: 8px; font-size: 0.85rem; font-weight: 500; display: none; }
+.feedback.show { display: block; }
+.feedback.ok { color: var(--verde); }
+.feedback.nok { color: var(--vermelho); }
+.score-box {
+  background: var(--blu);
+  color: white;
+  border-radius: 10px;
+  padding: 18px;
+  text-align: center;
+  margin-top: 20px;
+  display: none;
+}
+.score-box.show { display: block; }
+.score-box .numero { font-size: 2.2rem; font-family: 'Lora', serif; font-weight: 700; }
+.score-box p { color: rgba(255,255,255,0.8); font-size: 0.9rem; margin:0; }
+.btn-reiniciar {
+  margin-top: 12px;
+  background: white;
+  color: var(--blu);
+  border: none;
+  padding: 9px 22px;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.88rem;
+}
+
+it { color: var(--blu-claro); font-weight: 600; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-top">
+    <div>
+      <h1>🇮🇹 Italiano para Iniciantes</h1>
+      <p>Guia completo — gramática, vocabulário, pronúncia e exercícios</p>
+    </div>
+
+      🃏 Flashcards &amp; Simulador →
+    </a>
+  </div>
+  <nav class="tabs">
+    <button class="tab-btn active" onclick="aba(this,'passato')">Passato Prossimo</button>
+    <button class="tab-btn" onclick="aba(this,'auxiliares')">Verbi Ausiliari</button>
+    <button class="tab-btn" onclick="aba(this,'transitivos')">Verbi Transitivi</button>
+    <button class="tab-btn" onclick="aba(this,'presente')">Presente</button>
+    <button class="tab-btn" onclick="aba(this,'modais')">Verbi Modali</button>
+    <button class="tab-btn" onclick="aba(this,'pronomes')">Pronomi</button>
+    <button class="tab-btn" onclick="aba(this,'adjetivos')">Aggettivi</button>
+    <button class="tab-btn" onclick="aba(this,'artigos')">Articoli</button>
+    <button class="tab-btn" onclick="aba(this,'plural')">Plurale</button>
+    <button class="tab-btn" onclick="aba(this,'numeros')">Numeri</button>
+    <button class="tab-btn" onclick="aba(this,'tempo')">Tempo & Date</button>
+    <button class="tab-btn" onclick="aba(this,'vocab')">Vocabolario</button>
+    <button class="tab-btn" onclick="aba(this,'frases')">Frasi Utili</button>
+    <button class="tab-btn" onclick="aba(this,'pronuncia')">Pronuncia</button>
+    <button class="tab-btn" onclick="aba(this,'riflessivi')">Verbi Riflessivi</button>
+    <button class="tab-btn" onclick="aba(this,'exercicios')">Esercizi</button>
+  </nav>
+</header>
+
+<div class="content">
+
+<!-- ===== PASSATO PROSSIMO ===== -->
+<div id="passato" class="tab-panel active">
+  <h2>Passato Prossimo</h2>
+  <p>Usado para ações passadas concluídas, especialmente com relevância no presente. É o tempo passado mais comum na língua falada.</p>
+  <div class="regra"><strong>Fórmula:</strong> Sujeito + <em>avere</em> ou <em>essere</em> (presente) + participio passato</div>
+
+  <h3>Formação do Participio Passato</h3>
+  <table>
+    <tr><th>Infinitivo termina em</th><th>Participio</th><th>Exemplo</th></tr>
+    <tr><td>-are</td><td>-ato</td><td>parlare → <it>parlato</it></td></tr>
+    <tr><td>-ere</td><td>-uto</td><td>vendere → <it>venduto</it></td></tr>
+    <tr><td>-ire</td><td>-ito</td><td>dormire → <it>dormito</it></td></tr>
+  </table>
+
+  <h3>Participios Irregulares Importantes</h3>
+  <div class="grid-2">
+    <table>
+      <tr><th>Infinitivo</th><th>Participio</th></tr>
+      <tr><td>fare</td><td><it>fatto</it></td></tr>
+      <tr><td>dire</td><td><it>detto</it></td></tr>
+      <tr><td>essere</td><td><it>stato</it></td></tr>
+      <tr><td>avere</td><td><it>avuto</it></td></tr>
+      <tr><td>venire</td><td><it>venuto</it></td></tr>
+      <tr><td>prendere</td><td><it>preso</it></td></tr>
+    </table>
+    <table>
+      <tr><th>Infinitivo</th><th>Participio</th></tr>
+      <tr><td>mettere</td><td><it>messo</it></td></tr>
+      <tr><td>scrivere</td><td><it>scritto</it></td></tr>
+      <tr><td>leggere</td><td><it>letto</it></td></tr>
+      <tr><td>aprire</td><td><it>aperto</it></td></tr>
+      <tr><td>chiedere</td><td><it>chiesto</it></td></tr>
+      <tr><td>vedere</td><td><it>visto</it></td></tr>
+    </table>
+  </div>
+
+  <h3>Concordância com ESSERE</h3>
+  <div class="aviso">⚠️ Com <strong>essere</strong>, o participio concorda em gênero e número com o sujeito.</div>
+  <table>
+    <tr><th>Sujeito</th><th>Forma</th><th>Exemplo</th></tr>
+    <tr><td>Masc. singular</td><td>-o</td><td><em>Lui è andato al bar.</em></td></tr>
+    <tr><td>Fem. singular</td><td>-a</td><td><em>Lei è andata al bar.</em></td></tr>
+    <tr><td>Masc. plural</td><td>-i</td><td><em>Loro sono andati al bar.</em></td></tr>
+    <tr><td>Fem. plural</td><td>-e</td><td><em>Loro sono andate al bar.</em></td></tr>
+  </table>
+</div>
+
+<!-- ===== AUXILIARES ===== -->
+<div id="auxiliares" class="tab-panel">
+  <h2>Verbos Auxiliares: Avere e Essere</h2>
+  <div class="grid-2">
+    <div class="card">
+      <h4><span class="badge">AVERE</span> — Ter</h4>
+      <table>
+        <tr><th>Pessoa</th><th>Forma</th></tr>
+        <tr><td>io</td><td><it>ho</it></td></tr>
+        <tr><td>tu</td><td><it>hai</it></td></tr>
+        <tr><td>lui/lei</td><td><it>ha</it></td></tr>
+        <tr><td>noi</td><td><it>abbiamo</it></td></tr>
+        <tr><td>voi</td><td><it>avete</it></td></tr>
+        <tr><td>loro</td><td><it>hanno</it></td></tr>
+      </table>
+    </div>
+    <div class="card">
+      <h4><span class="badge verde">ESSERE</span> — Ser/Estar</h4>
+      <table>
+        <tr><th>Pessoa</th><th>Forma</th></tr>
+        <tr><td>io</td><td><it>sono</it></td></tr>
+        <tr><td>tu</td><td><it>sei</it></td></tr>
+        <tr><td>lui/lei</td><td><it>è</it></td></tr>
+        <tr><td>noi</td><td><it>siamo</it></td></tr>
+        <tr><td>voi</td><td><it>siete</it></td></tr>
+        <tr><td>loro</td><td><it>sono</it></td></tr>
+      </table>
+    </div>
+  </div>
+
+  <h3>Quando usar AVERE?</h3>
+  <div class="regra">Verbos <strong>transitivos diretos</strong> usam <em>avere</em>. O participio NÃO varia.</div>
+  <div class="exemplo">Ho mangiato la pasta. <span>— Comi a massa.</span></div>
+  <div class="exemplo">Abbiamo visto un film. <span>— Assistimos a um filme.</span></div>
+
+  <h3>Quando usar ESSERE?</h3>
+  <div class="regra">Verbos de <strong>movimento/estado</strong> e verbos <strong>reflexivos</strong> usam <em>essere</em>.</div>
+  <table>
+    <tr><th>Categoria</th><th>Verbos</th></tr>
+    <tr><td>Movimento</td><td>andare, venire, arrivare, partire, uscire, entrare, tornare, salire, scendere</td></tr>
+    <tr><td>Estado/Mudança</td><td>essere, stare, nascere, morire, diventare, rimanere, restare</td></tr>
+    <tr><td>Reflexivos</td><td>alzarsi, lavarsi, vestirsi, svegliarsi, divertirsi</td></tr>
+  </table>
+  <div class="exemplo">Sono andato a Roma. <span>— Fui a Roma.</span></div>
+  <div class="exemplo">Mi sono svegliato alle 7. <span>— Acordei às 7.</span></div>
+</div>
+
+<!-- ===== TRANSITIVOS ===== -->
+<div id="transitivos" class="tab-panel">
+  <h2>Verbos Transitivos e Intransitivos</h2>
+
+  <h3>Transitivo Direto → usa AVERE</h3>
+  <div class="regra">Pede objeto direto <strong>sem preposição</strong>. Pergunta: <em>"o quê?"</em> ou <em>"quem?"</em></div>
+  <div class="exemplo">Mangio <u>la pizza</u>. <span>— Como a pizza. (o quê? → a pizza)</span></div>
+  <div class="exemplo">Chiamo <u>Marco</u>. <span>— Ligo para o Marco. (quem? → Marco)</span></div>
+
+  <h3>Transitivo Indireto → usa AVERE</h3>
+  <div class="regra">Exige complemento <strong>com preposição</strong>. Pergunta: <em>"a quem?"</em>, <em>"de quê?"</em></div>
+  <div class="exemplo">Parlo <u>a Maria</u>. <span>— Falo com a Maria.</span></div>
+  <div class="exemplo">Penso <u>a te</u>. <span>— Penso em você.</span></div>
+
+  <h3>Intransitivo → usa ESSERE</h3>
+  <div class="regra">Não pede objeto. Expressa movimento ou estado.</div>
+  <div class="exemplo">Sono partito ieri. <span>— Parti ontem.</span></div>
+
+  <div class="separador"></div>
+  <h3>Pronomes de Objeto Direto</h3>
+  <div class="aviso">⚠️ Com <em>avere</em> + pronome direto, o participio concorda com o pronome!</div>
+  <table>
+    <tr><th>Pronome</th><th>Substitui</th><th>Exemplo</th></tr>
+    <tr><td><it>lo</it></td><td>masc. sing.</td><td><em>Ho comprato il libro → <strong>Lo</strong> ho comprato.</em></td></tr>
+    <tr><td><it>la</it></td><td>fem. sing.</td><td><em>Ho mangiato la torta → <strong>La</strong> ho mangiata.</em></td></tr>
+    <tr><td><it>li</it></td><td>masc. pl.</td><td><em>Ho visto i ragazzi → <strong>Li</strong> ho visti.</em></td></tr>
+    <tr><td><it>le</it></td><td>fem. pl.</td><td><em>Ho incontrato le amiche → <strong>Le</strong> ho incontrate.</em></td></tr>
+  </table>
+</div>
+
+<!-- ===== PRESENTE ===== -->
+<div id="presente" class="tab-panel">
+  <h2>Presente Indicativo</h2>
+  <p>O presente italiano funciona como nosso presente e também como o gerúndio em muitos casos.</p>
+
+  <h3>Verbos Regulares — 3 conjugações</h3>
+  <div class="grid-3">
+    <div class="card">
+      <h4>-ARE: parlare (falar)</h4>
+      <table>
+        <tr><td>io</td><td><it>parl<strong>o</strong></it></td></tr>
+        <tr><td>tu</td><td><it>parl<strong>i</strong></it></td></tr>
+        <tr><td>lui/lei</td><td><it>parl<strong>a</strong></it></td></tr>
+        <tr><td>noi</td><td><it>parl<strong>iamo</strong></it></td></tr>
+        <tr><td>voi</td><td><it>parl<strong>ate</strong></it></td></tr>
+        <tr><td>loro</td><td><it>parl<strong>ano</strong></it></td></tr>
+      </table>
+    </div>
+    <div class="card">
+      <h4>-ERE: scrivere (escrever)</h4>
+      <table>
+        <tr><td>io</td><td><it>scriv<strong>o</strong></it></td></tr>
+        <tr><td>tu</td><td><it>scriv<strong>i</strong></it></td></tr>
+        <tr><td>lui/lei</td><td><it>scriv<strong>e</strong></it></td></tr>
+        <tr><td>noi</td><td><it>scriv<strong>iamo</strong></it></td></tr>
+        <tr><td>voi</td><td><it>scriv<strong>ete</strong></it></td></tr>
+        <tr><td>loro</td><td><it>scriv<strong>ono</strong></it></td></tr>
+      </table>
+    </div>
+    <div class="card">
+      <h4>-IRE: dormire (dormir)</h4>
+      <table>
+        <tr><td>io</td><td><it>dorm<strong>o</strong></it></td></tr>
+        <tr><td>tu</td><td><it>dorm<strong>i</strong></it></td></tr>
+        <tr><td>lui/lei</td><td><it>dorm<strong>e</strong></it></td></tr>
+        <tr><td>noi</td><td><it>dorm<strong>iamo</strong></it></td></tr>
+        <tr><td>voi</td><td><it>dorm<strong>ite</strong></it></td></tr>
+        <tr><td>loro</td><td><it>dorm<strong>ono</strong></it></td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="aviso">⚠️ Verbos -ire em dois grupos: <em>dormire</em> (padrão) e verbos com <em>-isc-</em> inserido como <em>capire → capisco, capisci, capisce... capiamo, capite, capiscono</em></div>
+
+  <h3>Irregulares Essenciais</h3>
+  <div class="grid-2">
+    <div class="card">
+      <h4>essere (ser/estar)</h4>
+      <table>
+        <tr><td>io</td><td><it>sono</it></td></tr>
+        <tr><td>tu</td><td><it>sei</it></td></tr>
+        <tr><td>lui/lei</td><td><it>è</it></td></tr>
+        <tr><td>noi</td><td><it>siamo</it></td></tr>
+        <tr><td>voi</td><td><it>siete</it></td></tr>
+        <tr><td>loro</td><td><it>sono</it></td></tr>
+      </table>
+    </div>
+    <div class="card">
+      <h4>avere (ter)</h4>
+      <table>
+        <tr><td>io</td><td><it>ho</it></td></tr>
+        <tr><td>tu</td><td><it>hai</it></td></tr>
+        <tr><td>lui/lei</td><td><it>ha</it></td></tr>
+        <tr><td>noi</td><td><it>abbiamo</it></td></tr>
+        <tr><td>voi</td><td><it>avete</it></td></tr>
+        <tr><td>loro</td><td><it>hanno</it></td></tr>
+      </table>
+    </div>
+    <div class="card">
+      <h4>andare (ir)</h4>
+      <table>
+        <tr><td>io</td><td><it>vado</it></td></tr>
+        <tr><td>tu</td><td><it>vai</it></td></tr>
+        <tr><td>lui/lei</td><td><it>va</it></td></tr>
+        <tr><td>noi</td><td><it>andiamo</it></td></tr>
+        <tr><td>voi</td><td><it>andate</it></td></tr>
+        <tr><td>loro</td><td><it>vanno</it></td></tr>
+      </table>
+    </div>
+    <div class="card">
+      <h4>fare (fazer)</h4>
+      <table>
+        <tr><td>io</td><td><it>faccio</it></td></tr>
+        <tr><td>tu</td><td><it>fai</it></td></tr>
+        <tr><td>lui/lei</td><td><it>fa</it></td></tr>
+        <tr><td>noi</td><td><it>facciamo</it></td></tr>
+        <tr><td>voi</td><td><it>fate</it></td></tr>
+        <tr><td>loro</td><td><it>fanno</it></td></tr>
+      </table>
+    </div>
+    <div class="card">
+      <h4>venire (vir)</h4>
+      <table>
+        <tr><td>io</td><td><it>vengo</it></td></tr>
+        <tr><td>tu</td><td><it>vieni</it></td></tr>
+        <tr><td>lui/lei</td><td><it>viene</it></td></tr>
+        <tr><td>noi</td><td><it>veniamo</it></td></tr>
+        <tr><td>voi</td><td><it>venite</it></td></tr>
+        <tr><td>loro</td><td><it>vengono</it></td></tr>
+      </table>
+    </div>
+    <div class="card">
+      <h4>uscire (sair)</h4>
+      <table>
+        <tr><td>io</td><td><it>esco</it></td></tr>
+        <tr><td>tu</td><td><it>esci</it></td></tr>
+        <tr><td>lui/lei</td><td><it>esce</it></td></tr>
+        <tr><td>noi</td><td><it>usciamo</it></td></tr>
+        <tr><td>voi</td><td><it>uscite</it></td></tr>
+        <tr><td>loro</td><td><it>escono</it></td></tr>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ===== MODAIS ===== -->
+<div id="modais" class="tab-panel">
+  <h2>Verbos Modais</h2>
+  <p>Os modais <em>potere, volere, dovere</em> são seguidos de infinitivo e são extremamente comuns. Mudam completamente o sentido do verbo principal.</p>
+
+  <div class="grid-3">
+    <div class="card">
+      <h4><span class="badge">POTERE</span> — poder</h4>
+      <table>
+        <tr><td>io</td><td><it>posso</it></td></tr>
+        <tr><td>tu</td><td><it>puoi</it></td></tr>
+        <tr><td>lui/lei</td><td><it>può</it></td></tr>
+        <tr><td>noi</td><td><it>possiamo</it></td></tr>
+        <tr><td>voi</td><td><it>potete</it></td></tr>
+        <tr><td>loro</td><td><it>possono</it></td></tr>
+      </table>
+    </div>
+    <div class="card">
+      <h4><span class="badge verde">VOLERE</span> — querer</h4>
+      <table>
+        <tr><td>io</td><td><it>voglio</it></td></tr>
+        <tr><td>tu</td><td><it>vuoi</it></td></tr>
+        <tr><td>lui/lei</td><td><it>vuole</it></td></tr>
+        <tr><td>noi</td><td><it>vogliamo</it></td></tr>
+        <tr><td>voi</td><td><it>volete</it></td></tr>
+        <tr><td>loro</td><td><it>vogliono</it></td></tr>
+      </table>
+    </div>
+    <div class="card">
+      <h4><span class="badge vermelho">DOVERE</span> — dever/ter que</h4>
+      <table>
+        <tr><td>io</td><td><it>devo</it></td></tr>
+        <tr><td>tu</td><td><it>devi</it></td></tr>
+        <tr><td>lui/lei</td><td><it>deve</it></td></tr>
+        <tr><td>noi</td><td><it>dobbiamo</it></td></tr>
+        <tr><td>voi</td><td><it>dovete</it></td></tr>
+        <tr><td>loro</td><td><it>devono</it></td></tr>
+      </table>
+    </div>
+  </div>
+
+  <h3>Exemplos de uso</h3>
+  <div class="exemplo">Posso parlare con te? <span>— Posso falar com você?</span></div>
+  <div class="exemplo">Voglio imparare l'italiano. <span>— Quero aprender italiano.</span></div>
+  <div class="exemplo">Devo studiare stasera. <span>— Tenho que estudar hoje à noite.</span></div>
+  <div class="exemplo">Non possiamo uscire adesso. <span>— Não podemos sair agora.</span></div>
+
+  <h3>Modal + Infinitivo no Passato Prossimo</h3>
+  <div class="regra">Com modais no passato prossimo, o auxiliar pode ser <em>avere</em> ou <em>essere</em> dependendo do verbo principal.</div>
+  <div class="exemplo">Ho dovuto lavorare. <span>— Tive que trabalhar. (lavorare → avere)</span></div>
+  <div class="exemplo">Sono dovuto/a andare. <span>— Tive que ir. (andare → essere)</span></div>
+
+  <h3>Também útil: SAPERE e VOLERE</h3>
+  <table>
+    <tr><th>Verbo</th><th>Sentido</th><th>Exemplo</th></tr>
+    <tr><td><it>sapere</it> + infinitivo</td><td>saber fazer algo</td><td><em>So cucinare bene.</em> — Sei cozinhar bem.</td></tr>
+    <tr><td><it>stare</it> + gerúndio</td><td>estar fazendo</td><td><em>Sto mangiando.</em> — Estou comendo.</td></tr>
+  </table>
+</div>
+
+<!-- ===== PRONOMES ===== -->
+<div id="pronomes" class="tab-panel">
+  <h2>Pronomes em Italiano</h2>
+
+  <h3>Pronomes Pessoais (Sujeito)</h3>
+  <table>
+    <tr><th>Italiano</th><th>Português</th><th>Obs.</th></tr>
+    <tr><td><it>io</it></td><td>eu</td><td>Geralmente omitido (verbo já indica pessoa)</td></tr>
+    <tr><td><it>tu</it></td><td>você / tu</td><td>Informal</td></tr>
+    <tr><td><it>lui / lei</it></td><td>ele / ela</td><td><em>Lei</em> (maiúsculo) = você formal</td></tr>
+    <tr><td><it>noi</it></td><td>nós</td><td></td></tr>
+    <tr><td><it>voi</it></td><td>vocês</td><td></td></tr>
+    <tr><td><it>loro</it></td><td>eles / elas</td><td></td></tr>
+  </table>
+
+  <div class="dica">💡 Em italiano, o sujeito é geralmente omitido porque a terminação verbal já indica a pessoa. <em>Parlo</em> já significa "eu falo" sem precisar dizer <em>io</em>.</div>
+
+  <h3>Pronomes Possessivos</h3>
+  <div class="aviso">⚠️ Os possessivos concordam em gênero e número com a coisa possuída, não com o possuidor.</div>
+  <table>
+    <tr><th>Pessoa</th><th>Masc. sing.</th><th>Fem. sing.</th><th>Masc. pl.</th><th>Fem. pl.</th></tr>
+    <tr><td>meu/minha</td><td><it>mio</it></td><td><it>mia</it></td><td><it>miei</it></td><td><it>mie</it></td></tr>
+    <tr><td>teu/tua</td><td><it>tuo</it></td><td><it>tua</it></td><td><it>tuoi</it></td><td><it>tue</it></td></tr>
+    <tr><td>seu/sua (dele/dela)</td><td><it>suo</it></td><td><it>sua</it></td><td><it>suoi</it></td><td><it>sue</it></td></tr>
+    <tr><td>nosso/nossa</td><td><it>nostro</it></td><td><it>nostra</it></td><td><it>nostri</it></td><td><it>nostre</it></td></tr>
+    <tr><td>vosso/vossa</td><td><it>vostro</it></td><td><it>vostra</it></td><td><it>vostri</it></td><td><it>vostre</it></td></tr>
+    <tr><td>seu/sua (deles)</td><td><it>loro</it></td><td><it>loro</it></td><td><it>loro</it></td><td><it>loro</it></td></tr>
+  </table>
+  <div class="exemplo">il mio libro <span>— meu livro</span></div>
+  <div class="exemplo">la mia casa <span>— minha casa</span></div>
+  <div class="exemplo">i miei amici <span>— meus amigos</span></div>
+  <div class="aviso">⚠️ Com parentes no singular, o artigo é omitido: <em>mia madre, tuo padre, suo fratello</em>. Exceção: <em>loro</em> sempre leva artigo.</div>
+
+  <h3>Pronomes Demonstrativos</h3>
+  <table>
+    <tr><th></th><th>Masc. sing.</th><th>Fem. sing.</th><th>Masc. pl.</th><th>Fem. pl.</th></tr>
+    <tr><td>este/essa (perto)</td><td><it>questo</it></td><td><it>questa</it></td><td><it>questi</it></td><td><it>queste</it></td></tr>
+    <tr><td>aquele/aquela (longe)</td><td><it>quello</it></td><td><it>quella</it></td><td><it>quelli</it></td><td><it>quelle</it></td></tr>
+  </table>
+  <div class="exemplo">Questo libro è interessante. <span>— Este livro é interessante.</span></div>
+  <div class="exemplo">Quella macchina è bella. <span>— Aquele carro é bonito.</span></div>
+</div>
+
+<!-- ===== ADJETIVOS ===== -->
+<div id="adjetivos" class="tab-panel">
+  <h2>Adjetivos</h2>
+  <p>Em italiano, os adjetivos concordam em gênero e número com o substantivo que modificam. Geralmente vêm <strong>depois</strong> do substantivo.</p>
+
+  <h3>Terminações</h3>
+  <table>
+    <tr><th>Tipo</th><th>Masc. sing.</th><th>Fem. sing.</th><th>Masc. pl.</th><th>Fem. pl.</th></tr>
+    <tr><td>Terminados em -o</td><td><it>bello</it></td><td><it>bella</it></td><td><it>belli</it></td><td><it>belle</it></td></tr>
+    <tr><td>Terminados em -e</td><td><it>grande</it></td><td><it>grande</it></td><td><it>grandi</it></td><td><it>grandi</it></td></tr>
+  </table>
+  <div class="exemplo">un ragazzo alto / una ragazza alta <span>— um rapaz alto / uma moça alta</span></div>
+  <div class="exemplo">un film interessante / una storia interessante <span>— mesmo adjetivo para os dois gêneros</span></div>
+
+  <h3>Adjetivos que vêm ANTES do substantivo</h3>
+  <div class="regra">Alguns adjetivos comuns geralmente precedem o substantivo: <em>bello, brutto, buono, cattivo, grande, piccolo, giovane, vecchio, nuovo, stesso</em></div>
+  <div class="exemplo">un bel ragazzo <span>— um belo rapaz</span></div>
+  <div class="exemplo">una bella storia <span>— uma bela história</span></div>
+
+  <h3>Bello e Quello — seguem o artigo definido</h3>
+  <table>
+    <tr><th>Antes de...</th><th>bello</th><th>quello</th></tr>
+    <tr><td>il (masc. cons.)</td><td><it>bel</it></td><td><it>quel</it></td></tr>
+    <tr><td>lo (masc. s+cons, z)</td><td><it>bello</it></td><td><it>quello</it></td></tr>
+    <tr><td>l' (vogal)</td><td><it>bell'</it></td><td><it>quell'</it></td></tr>
+    <tr><td>la (fem. cons.)</td><td><it>bella</it></td><td><it>quella</it></td></tr>
+    <tr><td>i (masc. pl.)</td><td><it>bei</it></td><td><it>quei</it></td></tr>
+    <tr><td>gli (masc. pl. vogal/z/s)</td><td><it>begli</it></td><td><it>quegli</it></td></tr>
+    <tr><td>le (fem. pl.)</td><td><it>belle</it></td><td><it>quelle</it></td></tr>
+  </table>
+
+  <h3>Cores — Le Colori</h3>
+  <div class="grid-3">
+    <div class="card"><h4>🔴 rosso/a</h4><p style="margin:0">vermelho/a</p></div>
+    <div class="card"><h4>🔵 blu / azzurro/a</h4><p style="margin:0">azul escuro / azul claro</p></div>
+    <div class="card"><h4>🟡 giallo/a</h4><p style="margin:0">amarelo/a</p></div>
+    <div class="card"><h4>🟢 verde</h4><p style="margin:0">verde (invariável)</p></div>
+    <div class="card"><h4>⚫ nero/a</h4><p style="margin:0">preto/a</p></div>
+    <div class="card"><h4>⚪ bianco/a</h4><p style="margin:0">branco/a</p></div>
+    <div class="card"><h4>🟤 marrone</h4><p style="margin:0">marrom (invariável)</p></div>
+    <div class="card"><h4>🟠 arancione</h4><p style="margin:0">laranja (invariável)</p></div>
+    <div class="card"><h4>🟣 viola</h4><p style="margin:0">roxo (invariável)</p></div>
+  </div>
+  <div class="dica">💡 Algumas cores derivadas de substantivos (rosa, viola, blu, marrone, arancione) são invariáveis — não mudam no feminino ou plural.</div>
+</div>
+
+<!-- ===== ARTIGOS ===== -->
+<div id="artigos" class="tab-panel">
+  <h2>Artigos em Italiano</h2>
+
+  <h3>Artigos Indefinidos — um, uma</h3>
+  <table>
+    <tr><th>Forma</th><th>Quando usar</th><th>Exemplo</th></tr>
+    <tr><td><it>un</it></td><td>Masc. sing. — antes de consoante comum ou vogal</td><td><em>un libro, un amico</em></td></tr>
+    <tr><td><it>uno</it></td><td>Masc. sing. — antes de z, s+cons., gn, ps, x, y</td><td><em>uno zaino, uno studente</em></td></tr>
+    <tr><td><it>una</it></td><td>Fem. sing. — antes de consoante</td><td><em>una casa, una ragazza</em></td></tr>
+    <tr><td><it>un'</it></td><td>Fem. sing. — antes de vogal (elide)</td><td><em>un'amica, un'isola</em></td></tr>
+  </table>
+
+  <h3>Artigos Definidos — o, a, os, as</h3>
+  <table>
+    <tr><th>Forma</th><th>Quando usar</th><th>Exemplo</th></tr>
+    <tr><td><it>il</it></td><td>Masc. sing. — consoante comum</td><td><em>il cane, il libro</em></td></tr>
+    <tr><td><it>lo</it></td><td>Masc. sing. — z, s+cons., gn, ps, x, y</td><td><em>lo zaino, lo studente</em></td></tr>
+    <tr><td><it>l'</it></td><td>Masc./Fem. sing. — antes de vogal</td><td><em>l'amico, l'amica</em></td></tr>
+    <tr><td><it>la</it></td><td>Fem. sing. — antes de consoante</td><td><em>la casa, la ragazza</em></td></tr>
+    <tr><td><it>i</it></td><td>Masc. pl. — consoante comum</td><td><em>i cani, i libri</em></td></tr>
+    <tr><td><it>gli</it></td><td>Masc. pl. — vogal, z, s+cons., gn...</td><td><em>gli amici, gli zaini</em></td></tr>
+    <tr><td><it>le</it></td><td>Fem. pl. — sempre</td><td><em>le case, le amiche</em></td></tr>
+  </table>
+
+  <h3>Contrações com Preposições</h3>
+  <table>
+    <tr><th>Prep.</th><th>+ il</th><th>+ lo</th><th>+ la</th><th>+ i</th><th>+ gli</th><th>+ le</th><th>+ l'</th></tr>
+    <tr><td><strong>di</strong></td><td>del</td><td>dello</td><td>della</td><td>dei</td><td>degli</td><td>delle</td><td>dell'</td></tr>
+    <tr><td><strong>a</strong></td><td>al</td><td>allo</td><td>alla</td><td>ai</td><td>agli</td><td>alle</td><td>all'</td></tr>
+    <tr><td><strong>da</strong></td><td>dal</td><td>dallo</td><td>dalla</td><td>dai</td><td>dagli</td><td>dalle</td><td>dall'</td></tr>
+    <tr><td><strong>in</strong></td><td>nel</td><td>nello</td><td>nella</td><td>nei</td><td>negli</td><td>nelle</td><td>nell'</td></tr>
+    <tr><td><strong>su</strong></td><td>sul</td><td>sullo</td><td>sulla</td><td>sui</td><td>sugli</td><td>sulle</td><td>sull'</td></tr>
+  </table>
+  <div class="exemplo">Vado <strong>al</strong> mercato. <span>— Vou ao mercado. (a + il)</span></div>
+  <div class="exemplo">Vengo <strong>dalla</strong> scuola. <span>— Venho da escola. (da + la)</span></div>
+  <div class="exemplo">Il libro <strong>dello</strong> studente. <span>— O livro do estudante. (di + lo)</span></div>
+</div>
+
+<!-- ===== PLURAL ===== -->
+<div id="plural" class="tab-panel">
+  <h2>Formação do Plural</h2>
+
+  <h3>Regras Gerais</h3>
+  <table>
+    <tr><th>Singular termina em</th><th>Plural</th><th>Exemplo</th></tr>
+    <tr><td>-o (masc.)</td><td>-i</td><td>libro → <it>libri</it></td></tr>
+    <tr><td>-a (fem.)</td><td>-e</td><td>casa → <it>case</it></td></tr>
+    <tr><td>-e (masc./fem.)</td><td>-i</td><td>cane → <it>cani</it> / classe → <it>classi</it></td></tr>
+    <tr><td>-a (masc.)</td><td>-i</td><td>problema → <it>problemi</it></td></tr>
+  </table>
+
+  <h3>Exceções Importantes</h3>
+  <table>
+    <tr><th>Regra</th><th>Singular</th><th>Plural</th></tr>
+    <tr><td>-ca / -ga → preserva som duro</td><td>amica, banca</td><td><it>amiche, banche</it></td></tr>
+    <tr><td>-co / -go → geralmente -chi/-ghi</td><td>fuoco, lago</td><td><it>fuochi, laghi</it></td></tr>
+    <tr><td>-co → -ci (oxítonas)</td><td>medico, greco</td><td><it>medici, greci</it></td></tr>
+    <tr><td>Palavras invariáveis (acento final)</td><td>città, caffè</td><td><it>città, caffè</it> (iguais)</td></tr>
+  </table>
+
+  <h3>Plurais Irregulares — Partes do Corpo</h3>
+  <div class="aviso">💡 Partes do corpo em pares têm plural feminino irregular!</div>
+  <div class="grid-2">
+    <table>
+      <tr><th>Singular</th><th>Plural</th></tr>
+      <tr><td>il braccio</td><td><it>le braccia</it></td></tr>
+      <tr><td>il ginocchio</td><td><it>le ginocchia</it></td></tr>
+      <tr><td>il dito</td><td><it>le dita</it></td></tr>
+      <tr><td>l'uovo</td><td><it>le uova</it></td></tr>
+    </table>
+    <table>
+      <tr><th>Singular</th><th>Plural</th></tr>
+      <tr><td>uomo</td><td><it>uomini</it></td></tr>
+      <tr><td>mano (fem.)</td><td><it>mani</it></td></tr>
+      <tr><td>l'ala</td><td><it>le ali</it></td></tr>
+      <tr><td>il sopracciglio</td><td><it>le sopracciglia</it></td></tr>
+    </table>
+  </div>
+</div>
+
+<!-- ===== NÚMEROS ===== -->
+<div id="numeros" class="tab-panel">
+  <h2>Números — I Numeri</h2>
+
+  <h3>0 a 20</h3>
+  <div class="num-grid">
+    <div class="num-item"><strong>0</strong> zero</div>
+    <div class="num-item"><strong>1</strong> uno</div>
+    <div class="num-item"><strong>2</strong> due</div>
+    <div class="num-item"><strong>3</strong> tre</div>
+    <div class="num-item"><strong>4</strong> quattro</div>
+    <div class="num-item"><strong>5</strong> cinque</div>
+    <div class="num-item"><strong>6</strong> sei</div>
+    <div class="num-item"><strong>7</strong> sette</div>
+    <div class="num-item"><strong>8</strong> otto</div>
+    <div class="num-item"><strong>9</strong> nove</div>
+    <div class="num-item"><strong>10</strong> dieci</div>
+    <div class="num-item"><strong>11</strong> undici</div>
+    <div class="num-item"><strong>12</strong> dodici</div>
+    <div class="num-item"><strong>13</strong> tredici</div>
+    <div class="num-item"><strong>14</strong> quattordici</div>
+    <div class="num-item"><strong>15</strong> quindici</div>
+    <div class="num-item"><strong>16</strong> sedici</div>
+    <div class="num-item"><strong>17</strong> diciassette</div>
+    <div class="num-item"><strong>18</strong> diciotto</div>
+    <div class="num-item"><strong>19</strong> diciannove</div>
+    <div class="num-item"><strong>20</strong> venti</div>
+  </div>
+
+  <h3>Dezenas</h3>
+  <div class="num-grid">
+    <div class="num-item"><strong>20</strong> venti</div>
+    <div class="num-item"><strong>30</strong> trenta</div>
+    <div class="num-item"><strong>40</strong> quaranta</div>
+    <div class="num-item"><strong>50</strong> cinquanta</div>
+    <div class="num-item"><strong>60</strong> sessanta</div>
+    <div class="num-item"><strong>70</strong> settanta</div>
+    <div class="num-item"><strong>80</strong> ottanta</div>
+    <div class="num-item"><strong>90</strong> novanta</div>
+    <div class="num-item"><strong>100</strong> cento</div>
+    <div class="num-item"><strong>1000</strong> mille</div>
+  </div>
+
+  <div class="regra">
+    <strong>Como formar números compostos:</strong> venti + uno = <em>ventuno</em> (perde o i antes de 1 e 8); trenta + due = <em>trentadue</em>; quaranta + otto = <em>quarantotto</em>
+  </div>
+
+  <div class="exemplo">21 = ventuno &nbsp;|&nbsp; 28 = ventotto &nbsp;|&nbsp; 33 = trentatré &nbsp;|&nbsp; 99 = novantanove</div>
+
+  <h3>Números Ordinais</h3>
+  <table>
+    <tr><th>Número</th><th>Ordinal</th><th>Número</th><th>Ordinal</th></tr>
+    <tr><td>1°</td><td><it>primo/a</it></td><td>6°</td><td><it>sesto/a</it></td></tr>
+    <tr><td>2°</td><td><it>secondo/a</it></td><td>7°</td><td><it>settimo/a</it></td></tr>
+    <tr><td>3°</td><td><it>terzo/a</it></td><td>8°</td><td><it>ottavo/a</it></td></tr>
+    <tr><td>4°</td><td><it>quarto/a</it></td><td>9°</td><td><it>nono/a</it></td></tr>
+    <tr><td>5°</td><td><it>quinto/a</it></td><td>10°</td><td><it>decimo/a</it></td></tr>
+  </table>
+  <div class="dica">💡 A partir do 11°, adiciona-se <em>-esimo/a</em>: undicesimo, dodicesimo, ventesimo, centesimo...</div>
+</div>
+
+<!-- ===== TEMPO E DATAS ===== -->
+<div id="tempo" class="tab-panel">
+  <h2>Tempo e Datas</h2>
+
+  <h3>Que horas são? — Che ore sono?</h3>
+  <div class="regra">
+    Usa-se <em>È</em> para 1h e meios; <em>Sono</em> para os demais.
+  </div>
+  <table>
+    <tr><th>Hora</th><th>Italiano</th></tr>
+    <tr><td>1h00</td><td><em>È l'una.</em></td></tr>
+    <tr><td>2h00</td><td><em>Sono le due.</em></td></tr>
+    <tr><td>3h30</td><td><em>Sono le tre e mezza.</em></td></tr>
+    <tr><td>4h15</td><td><em>Sono le quattro e un quarto.</em></td></tr>
+    <tr><td>5h45</td><td><em>Sono le sei meno un quarto.</em></td></tr>
+    <tr><td>12h00</td><td><em>È mezzogiorno.</em></td></tr>
+    <tr><td>24h00</td><td><em>È mezzanotte.</em></td></tr>
+  </table>
+  <div class="dica">💡 <em>e mezza</em> = e meia &nbsp;|&nbsp; <em>e un quarto</em> = e um quarto &nbsp;|&nbsp; <em>meno un quarto</em> = menos um quarto</div>
+
+  <h3>Dias da Semana — I Giorni della Settimana</h3>
+  <div class="num-grid">
+    <div class="num-item"><strong>lunedì</strong> segunda</div>
+    <div class="num-item"><strong>martedì</strong> terça</div>
+    <div class="num-item"><strong>mercoledì</strong> quarta</div>
+    <div class="num-item"><strong>giovedì</strong> quinta</div>
+    <div class="num-item"><strong>venerdì</strong> sexta</div>
+    <div class="num-item"><strong>sabato</strong> sábado</div>
+    <div class="num-item"><strong>domenica</strong> domingo</div>
+  </div>
+  <div class="aviso">⚠️ Em italiano, os dias da semana são minúsculos e masculinos (exceto <em>domenica</em>, feminina).</div>
+
+  <h3>Meses — I Mesi</h3>
+  <div class="num-grid">
+    <div class="num-item"><strong>gennaio</strong> janeiro</div>
+    <div class="num-item"><strong>febbraio</strong> fevereiro</div>
+    <div class="num-item"><strong>marzo</strong> março</div>
+    <div class="num-item"><strong>aprile</strong> abril</div>
+    <div class="num-item"><strong>maggio</strong> maio</div>
+    <div class="num-item"><strong>giugno</strong> junho</div>
+    <div class="num-item"><strong>luglio</strong> julho</div>
+    <div class="num-item"><strong>agosto</strong> agosto</div>
+    <div class="num-item"><strong>settembre</strong> setembro</div>
+    <div class="num-item"><strong>ottobre</strong> outubro</div>
+    <div class="num-item"><strong>novembre</strong> novembro</div>
+    <div class="num-item"><strong>dicembre</strong> dezembro</div>
+  </div>
+
+  <h3>Estações — Le Stagioni</h3>
+  <div class="grid-2">
+    <div class="card">
+      <table>
+        <tr><td>🌸 primavera</td><td>primavera</td></tr>
+        <tr><td>☀️ estate</td><td>verão</td></tr>
+        <tr><td>🍂 autunno</td><td>outono</td></tr>
+        <tr><td>❄️ inverno</td><td>inverno</td></tr>
+      </table>
+    </div>
+    <div class="card">
+      <h4>Como dizer datas</h4>
+      <div class="exemplo">Oggi è il 5 marzo. <span>— Hoje é 5 de março.</span></div>
+      <div class="exemplo">Sono nato il 12 luglio 1995. <span>— Nasci em 12 de julho de 1995.</span></div>
+      <div class="aviso" style="margin:8px 0">⚠️ Para datas usa-se <em>il + número cardinal</em> (não ordinal), exceto para o 1°: <em>il primo gennaio</em>.</div>
+    </div>
+  </div>
+
+  <h3>Expressões de Tempo</h3>
+  <table>
+    <tr><th>Italiano</th><th>Português</th></tr>
+    <tr><td><it>oggi</it></td><td>hoje</td></tr>
+    <tr><td><it>ieri</it></td><td>ontem</td></tr>
+    <tr><td><it>domani</it></td><td>amanhã</td></tr>
+    <tr><td><it>adesso / ora</it></td><td>agora</td></tr>
+    <tr><td><it>presto</it></td><td>cedo / logo</td></tr>
+    <tr><td><it>tardi</it></td><td>tarde</td></tr>
+    <tr><td><it>questa settimana</it></td><td>esta semana</td></tr>
+    <tr><td><it>il mese scorso</it></td><td>o mês passado</td></tr>
+    <tr><td><it>l'anno prossimo</it></td><td>o ano que vem</td></tr>
+    <tr><td><it>sempre</it></td><td>sempre</td></tr>
+    <tr><td><it>mai</it></td><td>nunca / jamais</td></tr>
+    <tr><td><it>spesso</it></td><td>frequentemente</td></tr>
+  </table>
+</div>
+
+<!-- ===== VOCABULÁRIO ===== -->
+<div id="vocab" class="tab-panel">
+  <h2>Vocabulário Essencial</h2>
+
+  <h3>A Família — La Famiglia</h3>
+  <div class="grid-2">
+    <table>
+      <tr><th>Italiano</th><th>Português</th></tr>
+      <tr><td><it>il padre / papà</it></td><td>pai</td></tr>
+      <tr><td><it>la madre / mamma</it></td><td>mãe</td></tr>
+      <tr><td><it>il fratello</it></td><td>irmão</td></tr>
+      <tr><td><it>la sorella</it></td><td>irmã</td></tr>
+      <tr><td><it>il figlio / la figlia</it></td><td>filho / filha</td></tr>
+      <tr><td><it>il nonno / la nonna</it></td><td>avô / avó</td></tr>
+    </table>
+    <table>
+      <tr><th>Italiano</th><th>Português</th></tr>
+      <tr><td><it>lo zio / la zia</it></td><td>tio / tia</td></tr>
+      <tr><td><it>il cugino / la cugina</it></td><td>primo / prima</td></tr>
+      <tr><td><it>il marito</it></td><td>marido</td></tr>
+      <tr><td><it>la moglie</it></td><td>esposa</td></tr>
+      <tr><td><it>il nipote / la nipote</it></td><td>sobrinho/neto / sobrinha/neta</td></tr>
+      <tr><td><it>il genero / la nuora</it></td><td>genro / nora</td></tr>
+    </table>
+  </div>
+
+  <h3>Profissioni — Profissões</h3>
+  <div class="grid-3">
+    <table>
+      <tr><th>Masc.</th><th>Fem.</th><th>Tradução</th></tr>
+      <tr><td>medico</td><td>medico/a</td><td>médico/a</td></tr>
+      <tr><td>avvocato</td><td>avvocatessa</td><td>advogado/a</td></tr>
+      <tr><td>insegnante</td><td>insegnante</td><td>professor/a</td></tr>
+      <tr><td>studente</td><td>studentessa</td><td>estudante</td></tr>
+    </table>
+    <table>
+      <tr><th>Masc.</th><th>Fem.</th><th>Tradução</th></tr>
+      <tr><td>cuoco</td><td>cuoca</td><td>cozinheiro/a</td></tr>
+      <tr><td>cameriere</td><td>cameriera</td><td>garçom / garçonete</td></tr>
+      <tr><td>ingegnere</td><td>ingegnere</td><td>engenheiro/a</td></tr>
+      <tr><td>infermiere</td><td>infermiera</td><td>enfermeiro/a</td></tr>
+    </table>
+    <table>
+      <tr><th>Masc.</th><th>Fem.</th><th>Tradução</th></tr>
+      <tr><td>architetto</td><td>architetto/a</td><td>arquiteto/a</td></tr>
+      <tr><td>attore</td><td>attrice</td><td>ator / atriz</td></tr>
+      <tr><td>musicista</td><td>musicista</td><td>músico/a</td></tr>
+      <tr><td>scrittore</td><td>scrittrice</td><td>escritor/a</td></tr>
+    </table>
+  </div>
+  <div class="regra">Com <em>essere</em>: a profissão não leva artigo! <em>Sono medico.</em> (Sou médico.) — não <em>sono un medico</em>.</div>
+
+  <h3>Il Cibo — Comida e Bebida</h3>
+  <div class="grid-2">
+    <table>
+      <tr><th>Italiano</th><th>Português</th></tr>
+      <tr><td><it>il pane</it></td><td>pão</td></tr>
+      <tr><td><it>la pasta</it></td><td>massa</td></tr>
+      <tr><td><it>la pizza</it></td><td>pizza</td></tr>
+      <tr><td><it>il riso</it></td><td>arroz</td></tr>
+      <tr><td><it>la carne</it></td><td>carne</td></tr>
+      <tr><td><it>il pesce</it></td><td>peixe</td></tr>
+      <tr><td><it>la verdura</it></td><td>verdura</td></tr>
+      <tr><td><it>la frutta</it></td><td>frutas</td></tr>
+    </table>
+    <table>
+      <tr><th>Italiano</th><th>Português</th></tr>
+      <tr><td><it>il caffè</it></td><td>café</td></tr>
+      <tr><td><it>il tè</it></td><td>chá</td></tr>
+      <tr><td><it>l'acqua</it></td><td>água</td></tr>
+      <tr><td><it>il vino</it></td><td>vinho</td></tr>
+      <tr><td><it>la birra</it></td><td>cerveja</td></tr>
+      <tr><td><it>il succo</it></td><td>suco</td></tr>
+      <tr><td><it>il latte</it></td><td>leite</td></tr>
+      <tr><td><it>il gelato</it></td><td>sorvete</td></tr>
+    </table>
+  </div>
+</div>
+
+<!-- ===== FRASES ÚTEIS ===== -->
+<div id="frases" class="tab-panel">
+  <h2>Frases Úteis do Dia a Dia</h2>
+
+  <h3>Saudações e Despedidas</h3>
+  <div class="frase-card"><span class="it">Ciao!</span><span class="pt">Oi! / Tchau!</span><span class="fon">[tʃao]</span></div>
+  <div class="frase-card"><span class="it">Buongiorno!</span><span class="pt">Bom dia!</span><span class="fon">[bwon'dʒorno]</span></div>
+  <div class="frase-card"><span class="it">Buonasera!</span><span class="pt">Boa tarde / Boa noite!</span><span class="fon">[bwona'sera]</span></div>
+  <div class="frase-card"><span class="it">Buonanotte!</span><span class="pt">Boa noite! (ao dormir)</span><span class="fon">[bwona'nɔtte]</span></div>
+  <div class="frase-card"><span class="it">Arrivederci!</span><span class="pt">Até logo! (formal)</span><span class="fon">[arriveder'tʃi]</span></div>
+  <div class="frase-card"><span class="it">Come stai? / Come sta?</span><span class="pt">Como você está? (informal/formal)</span><span class="fon"></span></div>
+  <div class="frase-card"><span class="it">Bene, grazie! E tu?</span><span class="pt">Bem, obrigado! E você?</span><span class="fon"></span></div>
+
+  <div class="separador"></div>
+  <h3>Cortesia Essencial</h3>
+  <div class="frase-card"><span class="it">Per favore / Per piacere</span><span class="pt">Por favor</span><span class="fon"></span></div>
+  <div class="frase-card"><span class="it">Grazie / Grazie mille</span><span class="pt">Obrigado / Muitíssimo obrigado</span><span class="fon">[ˈɡrattsje]</span></div>
+  <div class="frase-card"><span class="it">Prego</span><span class="pt">De nada / Por favor (ao oferecer)</span><span class="fon">[ˈprɛɡo]</span></div>
+  <div class="frase-card"><span class="it">Scusa / Scusi</span><span class="pt">Desculpa (informal/formal)</span><span class="fon"></span></div>
+  <div class="frase-card"><span class="it">Mi dispiace</span><span class="pt">Sinto muito / Lamento</span><span class="fon"></span></div>
+
+  <div class="separador"></div>
+  <h3>No Restaurante — Al Ristorante</h3>
+  <div class="frase-card"><span class="it">Un tavolo per due, per favore.</span><span class="pt">Uma mesa para dois, por favor.</span><span class="fon"></span></div>
+  <div class="frase-card"><span class="it">Il menù, per favore.</span><span class="pt">O cardápio, por favor.</span><span class="fon"></span></div>
+  <div class="frase-card"><span class="it">Cosa mi consiglia?</span><span class="pt">O que você me recomenda?</span><span class="fon"></span></div>
+  <div class="frase-card"><span class="it">Vorrei un caffè.</span><span class="pt">Eu gostaria de um café.</span><span class="fon"></span></div>
+  <div class="frase-card"><span class="it">Il conto, per favore.</span><span class="pt">A conta, por favor.</span><span class="fon"></span></div>
+  <div class="frase-card"><span class="it">È delizioso!</span><span class="pt">Está delicioso!</span><span class="fon"></span></div>
+
+  <div class="separador"></div>
+  <h3>Fazer Compras — Fare la Spesa</h3>
+  <div class="frase-card"><span class="it">Quanto costa?</span><span class="pt">Quanto custa?</span><span class="fon"></span></div>
+  <div class="frase-card"><span class="it">Posso provarlo/a?</span><span class="pt">Posso experimentar?</span><span class="fon"></span></div>
+  <div class="frase-card"><span class="it">Lo/La prendo.</span><span class="pt">Vou levar (masc./fem.).</span><span class="fon"></span></div>
+  <div class="frase-card"><span class="it">Avete qualcosa di meno caro?</span><span class="pt">Têm algo mais barato?</span><span class="fon"></span></div>
+  <div class="frase-card"><span class="it">Pago con carta.</span><span class="pt">Pago com cartão.</span><span class="fon"></span></div>
+
+  <div class="separador"></div>
+  <h3>Pedir Informações e Direções</h3>
+  <div class="frase-card"><span class="it">Dov'è la stazione?</span><span class="pt">Onde fica a estação?</span><span class="fon"></span></div>
+  <div class="frase-card"><span class="it">Come arrivo a...?</span><span class="pt">Como chego a...?</span><span class="fon"></span></div>
+  <div class="frase-card"><span class="it">Giri a destra / a sinistra.</span><span class="pt">Vire à direita / à esquerda.</span><span class="fon"></span></div>
+  <div class="frase-card"><span class="it">Vada dritto.</span><span class="pt">Siga em frente.</span><span class="fon"></span></div>
+  <div class="frase-card"><span class="it">Non capisco. Può ripetere?</span><span class="pt">Não entendo. Pode repetir?</span><span class="fon"></span></div>
+  <div class="frase-card"><span class="it">Parla portoghese / inglese?</span><span class="pt">Fala português / inglês?</span><span class="fon"></span></div>
+</div>
+
+<!-- ===== PRONÚNCIA ===== -->
+<div id="pronuncia" class="tab-panel">
+  <h2>Pronúncia — La Pronuncia</h2>
+  <p>O italiano é uma língua fonética — cada letra tem sempre o mesmo som. Mas alguns grupos de letras têm sons específicos.</p>
+
+  <h3>Sons Especiais — Consoantes</h3>
+  <div class="grid-2">
+    <div class="som-card">
+      <div class="letra">C + a, o, u</div>
+      <div class="descricao">Som de K — como em "casa"</div>
+      <div class="ex">cane [kane], cosa [koza], cuore [kwore]</div>
+    </div>
+    <div class="som-card">
+      <div class="letra">C + e, i</div>
+      <div class="descricao">Som de TCH — como em "tchau"</div>
+      <div class="ex">cena [tʃena], ciao [tʃao], cinema [tʃinema]</div>
+    </div>
+    <div class="som-card">
+      <div class="letra">G + a, o, u</div>
+      <div class="descricao">Som de G duro — como em "gato"</div>
+      <div class="ex">gatto [gato], gusto [gusto]</div>
+    </div>
+    <div class="som-card">
+      <div class="letra">G + e, i</div>
+      <div class="descricao">Som de DJ — como em "djinn"</div>
+      <div class="ex">gelato [dʒelato], giorno [dʒorno]</div>
+    </div>
+    <div class="som-card">
+      <div class="letra">CH</div>
+      <div class="descricao">Som de K (antes de e, i)</div>
+      <div class="ex">che [ke], chiave [kjave], amiche [amike]</div>
+    </div>
+    <div class="som-card">
+      <div class="letra">GH</div>
+      <div class="descricao">Som de G duro (antes de e, i)</div>
+      <div class="ex">spaghetti [spageti], laghi [lagi]</div>
+    </div>
+    <div class="som-card">
+      <div class="letra">SC + e, i</div>
+      <div class="descricao">Som de X / SH</div>
+      <div class="ex">scena [ʃena], sci [ʃi], uscire [uʃire]</div>
+    </div>
+    <div class="som-card">
+      <div class="letra">SC + a, o, u</div>
+      <div class="descricao">Som de SK</div>
+      <div class="ex">scarpa [skarpa], scuola [skwola]</div>
+    </div>
+    <div class="som-card">
+      <div class="letra">GL + i</div>
+      <div class="descricao">Som parecido com LH</div>
+      <div class="ex">figlio [fiʎo], voglio [voʎo], aglio [aʎo]</div>
+    </div>
+    <div class="som-card">
+      <div class="letra">GN</div>
+      <div class="descricao">Som de NH</div>
+      <div class="ex">gnocchi [ɲɔki], bagno [baɲo], signore [siɲore]</div>
+    </div>
+    <div class="som-card">
+      <div class="letra">Z</div>
+      <div class="descricao">Som de TS ou DZ (varia)</div>
+      <div class="ex">pizza [pittsa], zero [dzero], mezzo [meddzo]</div>
+    </div>
+    <div class="som-card">
+      <div class="letra">Consoantes duplas</div>
+      <div class="descricao">Pronunciadas com ênfase dupla — fazem diferença de significado!</div>
+      <div class="ex">pala (pá) vs palla (bola) &nbsp;|&nbsp; nono (nono) vs nonno (avô)</div>
+    </div>
+  </div>
+
+  <h3>Vogais — sempre claras!</h3>
+  <div class="regra">Em italiano as vogais são sempre pronunciadas claramente, nunca reduzidas. Cada vogal em uma palavra é pronunciada.</div>
+  <table>
+    <tr><th>Vogal</th><th>Som</th><th>Exemplo</th></tr>
+    <tr><td><strong>a</strong></td><td>como em "cama"</td><td><em>amore</em> [amore]</td></tr>
+    <tr><td><strong>e</strong></td><td>aberto [ɛ] ou fechado [e]</td><td><em>bello</em> [bɛllo], <em>sera</em> [sera]</td></tr>
+    <tr><td><strong>i</strong></td><td>como em "si"</td><td><em>Italia</em> [itaʎa]</td></tr>
+    <tr><td><strong>o</strong></td><td>aberto [ɔ] ou fechado [o]</td><td><em>cosa</em> [kɔza]</td></tr>
+    <tr><td><strong>u</strong></td><td>como em "lua"</td><td><em>uomo</em> [wɔmo]</td></tr>
+  </table>
+
+  <h3>Acento Tônico</h3>
+  <div class="regra">A maioria das palavras italianas é acentuada na penúltima sílaba. Mas há muitas exceções — quando o acento cai em outra sílaba, geralmente é indicado por acento gráfico (à, è, ì, ò, ù).</div>
+  <div class="exemplo">parlare → par-<strong>LA</strong>-re &nbsp;|&nbsp; mangiare → man-<strong>GIA</strong>-re</div>
+  <div class="exemplo">subito → <strong>SU</strong>-bi-to (antepenúltima!) &nbsp;|&nbsp; caffè → caf-<strong>FÈ</strong> (última)</div>
+  <div class="dica">💡 Palavras como <em>città, caffè, perché, lunedì</em> têm acento na última sílaba e levam acento gráfico.</div>
+</div>
+
+<!-- ===== VERBI RIFLESSIVI ===== -->
+<div id="riflessivi" class="tab-panel">
+  <h2>Verbi Riflessivi — Verbos Reflexivos</h2>
+  <p>Os verbos reflexivos indicam que a ação recai sobre o próprio sujeito. Em italiano eles terminam em <strong>-si</strong> no infinitivo e sempre usam <strong>essere</strong> no passato prossimo.</p>
+
+  <div class="regra">
+    <strong>Estrutura:</strong> pronome reflexivo + verbo conjugado<br>
+    <em>Mi lavo</em> = Eu me lavo &nbsp;|&nbsp; <em>Ti alzi</em> = Você se levanta
+  </div>
+
+  <h3>Pronomes Reflexivos</h3>
+  <table>
+    <tr><th>Pessoa</th><th>Pronome</th><th>Exemplo</th></tr>
+    <tr><td>io</td><td><it>mi</it></td><td><em>Mi sveglio alle 7.</em> — Acordo às 7.</td></tr>
+    <tr><td>tu</td><td><it>ti</it></td><td><em>Ti alzi tardi.</em> — Você se levanta tarde.</td></tr>
+    <tr><td>lui / lei</td><td><it>si</it></td><td><em>Si veste in fretta.</em> — Ele/Ela se veste depressa.</td></tr>
+    <tr><td>noi</td><td><it>ci</it></td><td><em>Ci laviamo le mani.</em> — Lavamos as mãos.</td></tr>
+    <tr><td>voi</td><td><it>vi</it></td><td><em>Vi divertite molto.</em> — Vocês se divertem muito.</td></tr>
+    <tr><td>loro</td><td><it>si</it></td><td><em>Si salutano.</em> — Eles se cumprimentam.</td></tr>
+  </table>
+
+  <h3>Conjugação — alzarsi (levantar-se)</h3>
+  <div class="grid-2">
+    <div class="card">
+      <h4>Presente</h4>
+      <table>
+        <tr><td>io</td><td><it>mi alzo</it></td></tr>
+        <tr><td>tu</td><td><it>ti alzi</it></td></tr>
+        <tr><td>lui/lei</td><td><it>si alza</it></td></tr>
+        <tr><td>noi</td><td><it>ci alziamo</it></td></tr>
+        <tr><td>voi</td><td><it>vi alzate</it></td></tr>
+        <tr><td>loro</td><td><it>si alzano</it></td></tr>
+      </table>
+    </div>
+    <div class="card">
+      <h4>Passato Prossimo <span class="badge verde">sempre ESSERE</span></h4>
+      <table>
+        <tr><td>io</td><td><it>mi sono alzato/a</it></td></tr>
+        <tr><td>tu</td><td><it>ti sei alzato/a</it></td></tr>
+        <tr><td>lui/lei</td><td><it>si è alzato/a</it></td></tr>
+        <tr><td>noi</td><td><it>ci siamo alzati/e</it></td></tr>
+        <tr><td>voi</td><td><it>vi siete alzati/e</it></td></tr>
+        <tr><td>loro</td><td><it>si sono alzati/e</it></td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="aviso">⚠️ No passato prossimo, o participio concorda em gênero e número com o sujeito: <em>mi sono alzato</em> (masc.) / <em>mi sono alzata</em> (fem.)</div>
+
+  <h3>Verbos Reflexivos Mais Usados — La Routine</h3>
+  <table>
+    <tr><th>Infinitivo</th><th>Tradução</th><th>Exemplo no presente</th></tr>
+    <tr><td><it>svegliarsi</it></td><td>acordar</td><td><em>Mi sveglio alle sei.</em></td></tr>
+    <tr><td><it>alzarsi</it></td><td>levantar-se</td><td><em>Mi alzo subito.</em></td></tr>
+    <tr><td><it>lavarsi</it></td><td>lavar-se</td><td><em>Mi lavo la faccia.</em></td></tr>
+    <tr><td><it>farsi la doccia</it></td><td>tomar banho</td><td><em>Mi faccio la doccia.</em></td></tr>
+    <tr><td><it>vestirsi</it></td><td>vestir-se</td><td><em>Mi vesto in fretta.</em></td></tr>
+    <tr><td><it>pettinarsi</it></td><td>pentear-se</td><td><em>Mi pettino i capelli.</em></td></tr>
+    <tr><td><it>truccarsi</it></td><td>maquiar-se</td><td><em>Si trucca ogni mattina.</em></td></tr>
+    <tr><td><it>sedersi</it></td><td>sentar-se</td><td><em>Si siede vicino alla finestra.</em></td></tr>
+    <tr><td><it>riposarsi</it></td><td>descansar</td><td><em>Ci riposiamo dopo pranzo.</em></td></tr>
+    <tr><td><it>addormentarsi</it></td><td>adormecer</td><td><em>Mi addormento tardi.</em></td></tr>
+    <tr><td><it>svegliarsi</it></td><td>acordar</td><td><em>Ti svegli presto?</em></td></tr>
+    <tr><td><it>sposarsi</it></td><td>casar-se</td><td><em>Si sposano in giugno.</em></td></tr>
+    <tr><td><it>innamorarsi</it></td><td>apaixonar-se</td><td><em>Mi sono innamorato/a di te.</em></td></tr>
+    <tr><td><it>chiamarsi</it></td><td>chamar-se</td><td><em>Mi chiamo Sofia.</em></td></tr>
+    <tr><td><it>sentirsi</it></td><td>sentir-se</td><td><em>Mi sento bene oggi.</em></td></tr>
+    <tr><td><it>divertirsi</it></td><td>divertir-se</td><td><em>Ci divertiamo sempre!</em></td></tr>
+    <tr><td><it>fermarsi</it></td><td>parar-se</td><td><em>Si ferma al semaforo.</em></td></tr>
+    <tr><td><it>sbrigarsi</it></td><td>apressar-se</td><td><em>Sbrigati! Siamo in ritardo.</em></td></tr>
+  </table>
+
+  <h3>A Rotina Diária em Frases</h3>
+  <div class="exemplo">Di mattina mi sveglio, mi alzo, mi faccio la doccia e mi vesto. <span>— De manhã acordo, levanto, tomo banho e me visto.</span></div>
+  <div class="exemplo">A mezzogiorno ci sediamo a tavola e mangiamo insieme. <span>— Ao meio-dia sentamos à mesa e comemos juntos.</span></div>
+  <div class="exemplo">Di sera mi rilasso, guardo la TV e mi addormento tardi. <span>— À noite relaxo, assisto TV e adormeço tarde.</span></div>
+
+  <h3>Reflexivos Recíprocos</h3>
+  <div class="regra">Quando o pronome é plural (<em>ci, vi, si</em>), pode expressar ação mútua — "um ao outro".</div>
+  <table>
+    <tr><th>Italiano</th><th>Tradução</th></tr>
+    <tr><td><em>Ci amiamo.</em></td><td>Nós nos amamos. (um ao outro)</td></tr>
+    <tr><td><em>Vi conoscete?</em></td><td>Vocês se conhecem?</td></tr>
+    <tr><td><em>Si salutano ogni giorno.</em></td><td>Eles se cumprimentam todo dia.</td></tr>
+    <tr><td><em>Ci siamo incontrati per caso.</em></td><td>Nos encontramos por acaso.</td></tr>
+  </table>
+
+  <h3>Posição do Pronome Reflexivo</h3>
+  <div class="regra">Com verbos modais (<em>volere, potere, dovere</em>), o pronome pode ficar antes do modal <strong>ou</strong> colado ao infinitivo.</div>
+  <div class="grid-2">
+    <div class="card">
+      <h4>Antes do modal</h4>
+      <div class="exemplo" style="margin:4px 0">Mi voglio alzare. <span>— Quero me levantar.</span></div>
+      <div class="exemplo" style="margin:4px 0">Ti devi sbrigare! <span>— Você tem que se apressar!</span></div>
+    </div>
+    <div class="card">
+      <h4>Colado ao infinitivo</h4>
+      <div class="exemplo" style="margin:4px 0">Voglio alzarmi. <span>— Quero me levantar.</span></div>
+      <div class="exemplo" style="margin:4px 0">Devi sbrigarti! <span>— Você tem que se apressar!</span></div>
+    </div>
+  </div>
+  <div class="dica">💡 Ambas as formas são corretas — na fala cotidiana as duas são muito comuns.</div>
+
+  <!-- Exercício reflexivos -->
+  <div class="separador"></div>
+  <h3>Exercício — Verbi Riflessivi</h3>
+  <div class="exercicio" id="blocoRif">
+    <h4>Escolha a forma correta do verbo reflexivo</h4>
+
+    <div class="questao" data-correto="b">
+      <p>1. Ogni mattina io ______ alle sette. (svegliarsi)</p>
+      <div class="opcoes">
+        <button class="opcao" onclick="responder(this,'blocoRif')">si sveglio</button>
+        <button class="opcao" onclick="responder(this,'blocoRif')">mi sveglio</button>
+        <button class="opcao" onclick="responder(this,'blocoRif')">ti sveglio</button>
+      </div>
+      <div class="feedback"></div>
+    </div>
+
+    <div class="questao" data-correto="a">
+      <p>2. Come ______ ? (chiamarsi — tu)</p>
+      <div class="opcoes">
+        <button class="opcao" onclick="responder(this,'blocoRif')">ti chiami</button>
+        <button class="opcao" onclick="responder(this,'blocoRif')">mi chiamo</button>
+        <button class="opcao" onclick="responder(this,'blocoRif')">si chiama</button>
+      </div>
+      <div class="feedback"></div>
+    </div>
+
+    <div class="questao" data-correto="c">
+      <p>3. Ieri sera Maria ______ tardi. (addormentarsi)</p>
+      <div class="opcoes">
+        <button class="opcao" onclick="responder(this,'blocoRif')">ha addormentato</button>
+        <button class="opcao" onclick="responder(this,'blocoRif')">si è addormentato</button>
+        <button class="opcao" onclick="responder(this,'blocoRif')">si è addormentata</button>
+      </div>
+      <div class="feedback"></div>
+    </div>
+
+    <div class="questao" data-correto="b">
+      <p>4. Noi ______ molto a quella festa! (divertirsi — passato prossimo)</p>
+      <div class="opcoes">
+        <button class="opcao" onclick="responder(this,'blocoRif')">abbiamo divertito</button>
+        <button class="opcao" onclick="responder(this,'blocoRif')">ci siamo divertiti</button>
+        <button class="opcao" onclick="responder(this,'blocoRif')">si sono divertiti</button>
+      </div>
+      <div class="feedback"></div>
+    </div>
+
+    <div class="questao" data-correto="a">
+      <p>5. Devo ______ prima delle otto. (alzarsi)</p>
+      <div class="opcoes">
+        <button class="opcao" onclick="responder(this,'blocoRif')">alzarmi</button>
+        <button class="opcao" onclick="responder(this,'blocoRif')">alzarsi</button>
+        <button class="opcao" onclick="responder(this,'blocoRif')">mi alzare</button>
+      </div>
+      <div class="feedback"></div>
+    </div>
+
+    <div class="questao" data-correto="c">
+      <p>6. Voi ______ prima di uscire? (vestirsi)</p>
+      <div class="opcoes">
+        <button class="opcao" onclick="responder(this,'blocoRif')">si vestite</button>
+        <button class="opcao" onclick="responder(this,'blocoRif')">ci vestite</button>
+        <button class="opcao" onclick="responder(this,'blocoRif')">vi vestite</button>
+      </div>
+      <div class="feedback"></div>
+    </div>
+
+    <div class="score-box" id="score-blocoRif">
+      <div class="numero" id="num-blocoRif"></div>
+      <p id="msg-blocoRif"></p>
+      <button class="btn-reiniciar" onclick="reiniciar('blocoRif')">Tentar novamente</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== EXERCÍCIOS ===== -->
+<div id="exercicios" class="tab-panel">
+  <h2>Exercícios Interativos</h2>
+  <p>Clique na resposta correta. Veja sua pontuação ao final de cada bloco!</p>
+
+  <!-- Bloco 1 -->
+  <div class="exercicio" id="bloco1">
+    <h4>Bloco 1 — Auxiliar: Avere ou Essere?</h4>
+    <div class="questao" data-correto="a"><p>1. Marco ______ mangiato una pizza.</p><div class="opcoes"><button class="opcao" onclick="responder(this,'bloco1')">ha</button><button class="opcao" onclick="responder(this,'bloco1')">è</button></div><div class="feedback"></div></div>
+    <div class="questao" data-correto="b"><p>2. Lucia ______ andata al mercato.</p><div class="opcoes"><button class="opcao" onclick="responder(this,'bloco1')">ha</button><button class="opcao" onclick="responder(this,'bloco1')">è</button></div><div class="feedback"></div></div>
+    <div class="questao" data-correto="a"><p>3. Noi ______ letto il giornale.</p><div class="opcoes"><button class="opcao" onclick="responder(this,'bloco1')">abbiamo</button><button class="opcao" onclick="responder(this,'bloco1')">siamo</button></div><div class="feedback"></div></div>
+    <div class="questao" data-correto="b"><p>4. I ragazzi ______ partiti ieri sera.</p><div class="opcoes"><button class="opcao" onclick="responder(this,'bloco1')">hanno</button><button class="opcao" onclick="responder(this,'bloco1')">sono</button></div><div class="feedback"></div></div>
+    <div class="questao" data-correto="b"><p>5. Mi ______ svegliato tardi stamattina.</p><div class="opcoes"><button class="opcao" onclick="responder(this,'bloco1')">ho</button><button class="opcao" onclick="responder(this,'bloco1')">sono</button></div><div class="feedback"></div></div>
+    <div class="score-box" id="score-bloco1"><div class="numero" id="num-bloco1"></div><p id="msg-bloco1"></p><button class="btn-reiniciar" onclick="reiniciar('bloco1')">Tentar novamente</button></div>
+  </div>
+
+  <!-- Bloco 2 -->
+  <div class="exercicio" id="bloco2">
+    <h4>Bloco 2 — Artigos: un, uno, una, un'?</h4>
+    <div class="questao" data-correto="b"><p>1. Ho comprato ______ zaino nuovo.</p><div class="opcoes"><button class="opcao" onclick="responder(this,'bloco2')">un</button><button class="opcao" onclick="responder(this,'bloco2')">uno</button><button class="opcao" onclick="responder(this,'bloco2')">una</button></div><div class="feedback"></div></div>
+    <div class="questao" data-correto="c"><p>2. C'è ______ bella sorpresa per te!</p><div class="opcoes"><button class="opcao" onclick="responder(this,'bloco2')">un</button><button class="opcao" onclick="responder(this,'bloco2')">un'</button><button class="opcao" onclick="responder(this,'bloco2')">una</button></div><div class="feedback"></div></div>
+    <div class="questao" data-correto="b"><p>3. Ho visto ______ elefante allo zoo.</p><div class="opcoes"><button class="opcao" onclick="responder(this,'bloco2')">uno</button><button class="opcao" onclick="responder(this,'bloco2')">un</button><button class="opcao" onclick="responder(this,'bloco2')">una</button></div><div class="feedback"></div></div>
+    <div class="questao" data-correto="b"><p>4. Lei è ______ amica speciale.</p><div class="opcoes"><button class="opcao" onclick="responder(this,'bloco2')">una</button><button class="opcao" onclick="responder(this,'bloco2')">un'</button><button class="opcao" onclick="responder(this,'bloco2')">un</button></div><div class="feedback"></div></div>
+    <div class="questao" data-correto="a"><p>5. Devo parlare con ______ avvocato.</p><div class="opcoes"><button class="opcao" onclick="responder(this,'bloco2')">un</button><button class="opcao" onclick="responder(this,'bloco2')">uno</button><button class="opcao" onclick="responder(this,'bloco2')">una</button></div><div class="feedback"></div></div>
+    <div class="score-box" id="score-bloco2"><div class="numero" id="num-bloco2"></div><p id="msg-bloco2"></p><button class="btn-reiniciar" onclick="reiniciar('bloco2')">Tentar novamente</button></div>
+  </div>
+
+  <!-- Bloco 3 -->
+  <div class="exercicio" id="bloco3">
+    <h4>Bloco 3 — Presente dos Verbos Irregulares</h4>
+    <div class="questao" data-correto="b"><p>1. Io ______ andare al cinema stasera. (volere)</p><div class="opcoes"><button class="opcao" onclick="responder(this,'bloco3')">vuole</button><button class="opcao" onclick="responder(this,'bloco3')">voglio</button><button class="opcao" onclick="responder(this,'bloco3')">volete</button></div><div class="feedback"></div></div>
+    <div class="questao" data-correto="a"><p>2. Tu ______ suonare la chitarra? (sapere)</p><div class="opcoes"><button class="opcao" onclick="responder(this,'bloco3')">sai</button><button class="opcao" onclick="responder(this,'bloco3')">sa</button><button class="opcao" onclick="responder(this,'bloco3')">so</button></div><div class="feedback"></div></div>
+    <div class="questao" data-correto="c"><p>3. Noi ______ studiare adesso. (dovere)</p><div class="opcoes"><button class="opcao" onclick="responder(this,'bloco3')">devono</button><button class="opcao" onclick="responder(this,'bloco3')">devo</button><button class="opcao" onclick="responder(this,'bloco3')">dobbiamo</button></div><div class="feedback"></div></div>
+    <div class="questao" data-correto="a"><p>4. Lei ______ a casa dei suoi genitori. (andare)</p><div class="opcoes"><button class="opcao" onclick="responder(this,'bloco3')">va</button><button class="opcao" onclick="responder(this,'bloco3')">vado</button><button class="opcao" onclick="responder(this,'bloco3')">vanno</button></div><div class="feedback"></div></div>
+    <div class="questao" data-correto="b"><p>5. Loro ______ la cena ogni sera. (fare)</p><div class="opcoes"><button class="opcao" onclick="responder(this,'bloco3')">fate</button><button class="opcao" onclick="responder(this,'bloco3')">fanno</button><button class="opcao" onclick="responder(this,'bloco3')">facciamo</button></div><div class="feedback"></div></div>
+    <div class="score-box" id="score-bloco3"><div class="numero" id="num-bloco3"></div><p id="msg-bloco3"></p><button class="btn-reiniciar" onclick="reiniciar('bloco3')">Tentar novamente</button></div>
+  </div>
+
+  <!-- Bloco 4 -->
+  <div class="exercicio" id="bloco4">
+    <h4>Bloco 4 — Plural</h4>
+    <div class="questao" data-correto="b"><p>1. Plural de <em>lo studente</em>:</p><div class="opcoes"><button class="opcao" onclick="responder(this,'bloco4')">i studenti</button><button class="opcao" onclick="responder(this,'bloco4')">gli studenti</button><button class="opcao" onclick="responder(this,'bloco4')">le studenti</button></div><div class="feedback"></div></div>
+    <div class="questao" data-correto="a"><p>2. Plural de <em>l'amica</em>:</p><div class="opcoes"><button class="opcao" onclick="responder(this,'bloco4')">le amiche</button><button class="opcao" onclick="responder(this,'bloco4')">gli amici</button><button class="opcao" onclick="responder(this,'bloco4')">le amici</button></div><div class="feedback"></div></div>
+    <div class="questao" data-correto="c"><p>3. Plural de <em>il braccio</em>:</p><div class="opcoes"><button class="opcao" onclick="responder(this,'bloco4')">i bracci</button><button class="opcao" onclick="responder(this,'bloco4')">i braccia</button><button class="opcao" onclick="responder(this,'bloco4')">le braccia</button></div><div class="feedback"></div></div>
+    <div class="questao" data-correto="b"><p>4. Plural de <em>la città</em>:</p><div class="opcoes"><button class="opcao" onclick="responder(this,'bloco4')">le cittàe</button><button class="opcao" onclick="responder(this,'bloco4')">le città</button><button class="opcao" onclick="responder(this,'bloco4')">le citti</button></div><div class="feedback"></div></div>
+    <div class="questao" data-correto="a"><p>5. Plural de <em>il lago</em>:</p><div class="opcoes"><button class="opcao" onclick="responder(this,'bloco4')">i laghi</button><button class="opcao" onclick="responder(this,'bloco4')">i lagi</button><button class="opcao" onclick="responder(this,'bloco4')">i laghie</button></div><div class="feedback"></div></div>
+    <div class="score-box" id="score-bloco4"><div class="numero" id="num-bloco4"></div><p id="msg-bloco4"></p><button class="btn-reiniciar" onclick="reiniciar('bloco4')">Tentar novamente</button></div>
+  </div>
+
+  <!-- Bloco 5 -->
+  <div class="exercicio" id="bloco5">
+    <h4>Bloco 5 — Números e Tempo</h4>
+    <div class="questao" data-correto="b"><p>1. Come si dice "35" in italiano?</p><div class="opcoes"><button class="opcao" onclick="responder(this,'bloco5')">trenticinque</button><button class="opcao" onclick="responder(this,'bloco5')">trentacinque</button><button class="opcao" onclick="responder(this,'bloco5')">trenta e cinque</button></div><div class="feedback"></div></div>
+    <div class="questao" data-correto="c"><p>2. "Sono le tre e mezza" significa:</p><div class="opcoes"><button class="opcao" onclick="responder(this,'bloco5')">São três horas</button><button class="opcao" onclick="responder(this,'bloco5')">São duas e meia</button><button class="opcao" onclick="responder(this,'bloco5')">São três e meia</button></div><div class="feedback"></div></div>
+    <div class="questao" data-correto="a"><p>3. Qual é a tradução de "mercoledì"?</p><div class="opcoes"><button class="opcao" onclick="responder(this,'bloco5')">quarta-feira</button><button class="opcao" onclick="responder(this,'bloco5')">quinta-feira</button><button class="opcao" onclick="responder(this,'bloco5')">terça-feira</button></div><div class="feedback"></div></div>
+    <div class="questao" data-correto="b"><p>4. Como se diz "o mês passado"?</p><div class="opcoes"><button class="opcao" onclick="responder(this,'bloco5')">il mese prossimo</button><button class="opcao" onclick="responder(this,'bloco5')">il mese scorso</button><button class="opcao" onclick="responder(this,'bloco5')">questo mese</button></div><div class="feedback"></div></div>
+    <div class="questao" data-correto="c"><p>5. "Oggi è il primo marzo" significa:</p><div class="opcoes"><button class="opcao" onclick="responder(this,'bloco5')">Hoje é 3 de março</button><button class="opcao" onclick="responder(this,'bloco5')">Hoje é o terceiro de março</button><button class="opcao" onclick="responder(this,'bloco5')">Hoje é 1° de março</button></div><div class="feedback"></div></div>
+    <div class="score-box" id="score-bloco5"><div class="numero" id="num-bloco5"></div><p id="msg-bloco5"></p><button class="btn-reiniciar" onclick="reiniciar('bloco5')">Tentar novamente</button></div>
+  </div>
+
+  <!-- Bloco 6 -->
+  <div class="exercicio" id="bloco6">
+    <h4>Bloco 6 — Frases e Vocabulário</h4>
+    <div class="questao" data-correto="b"><p>1. Como se pede a conta no restaurante?</p><div class="opcoes"><button class="opcao" onclick="responder(this,'bloco6')">Vorrei il menù.</button><button class="opcao" onclick="responder(this,'bloco6')">Il conto, per favore.</button><button class="opcao" onclick="responder(this,'bloco6')">Dov'è la stazione?</button></div><div class="feedback"></div></div>
+    <div class="questao" data-correto="a"><p>2. "Buonasera" usa-se:</p><div class="opcoes"><button class="opcao" onclick="responder(this,'bloco6')">À tarde e à noite</button><button class="opcao" onclick="responder(this,'bloco6')">Só pela manhã</button><button class="opcao" onclick="responder(this,'bloco6')">Somente ao dormir</button></div><div class="feedback"></div></div>
+    <div class="questao" data-correto="c"><p>3. Como se diz "Vire à esquerda"?</p><div class="opcoes"><button class="opcao" onclick="responder(this,'bloco6')">Vada dritto.</button><button class="opcao" onclick="responder(this,'bloco6')">Giri a destra.</button><button class="opcao" onclick="responder(this,'bloco6')">Giri a sinistra.</button></div><div class="feedback"></div></div>
+    <div class="questao" data-correto="b"><p>4. "Quanto costa?" significa:</p><div class="opcoes"><button class="opcao" onclick="responder(this,'bloco6')">Onde fica?</button><button class="opcao" onclick="responder(this,'bloco6')">Quanto custa?</button><button class="opcao" onclick="responder(this,'bloco6')">O que é isso?</button></div><div class="feedback"></div></div>
+    <div class="questao" data-correto="a"><p>5. Como se diz "Sinto muito"?</p><div class="opcoes"><button class="opcao" onclick="responder(this,'bloco6')">Mi dispiace.</button><button class="opcao" onclick="responder(this,'bloco6')">Grazie mille.</button><button class="opcao" onclick="responder(this,'bloco6')">Per favore.</button></div><div class="feedback"></div></div>
+    <div class="score-box" id="score-bloco6"><div class="numero" id="num-bloco6"></div><p id="msg-bloco6"></p><button class="btn-reiniciar" onclick="reiniciar('bloco6')">Tentar novamente</button></div>
+  </div>
+</div>
+
+</div><!-- /content -->
+
+<script>
+function aba(btn, id) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+  btn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+}
+
+const estados = {};
+
+function responder(btn, blocoId) {
+  const questao = btn.closest('.questao');
+  if (questao.dataset.respondido) return;
+  questao.dataset.respondido = 'true';
+  if (!estados[blocoId]) estados[blocoId] = { certas: 0, respondidas: 0 };
+  const e = estados[blocoId];
+  const opcoes = questao.querySelectorAll('.opcao');
+  const correto = questao.dataset.correto;
+  const idx = Array.from(opcoes).indexOf(btn);
+  const letra = String.fromCharCode(97 + idx);
+  const feedback = questao.querySelector('.feedback');
+  opcoes.forEach(o => o.disabled = true);
+  if (letra === correto) {
+    btn.classList.add('correta');
+    feedback.textContent = '✓ Corretto!';
+    feedback.className = 'feedback show ok';
+    e.certas++;
+  } else {
+    btn.classList.add('errada');
+    const idxC = correto.charCodeAt(0) - 97;
+    if (opcoes[idxC]) opcoes[idxC].classList.add('correta');
+    feedback.textContent = '✗ Resposta incorreta.';
+    feedback.className = 'feedback show nok';
+  }
+  e.respondidas++;
+  const bloco = document.getElementById(blocoId);
+  const total = bloco.querySelectorAll('.questao').length;
+  if (e.respondidas === total) {
+    const score = document.getElementById('score-' + blocoId);
+    document.getElementById('num-' + blocoId).textContent = e.certas + '/' + total;
+    const msgs = ['Dai, riprova! Puoi farcela! 💪', 'Non male! Continua a studiare! 📖', 'Bene! Quasi perfetto! 👍', 'Perfetto! Sei un campione! 🎉'];
+    document.getElementById('msg-' + blocoId).textContent = msgs[Math.min(Math.floor(e.certas / total * 3.99), 3)];
+    score.classList.add('show');
+  }
+}
+
+function reiniciar(blocoId) {
+  estados[blocoId] = { certas: 0, respondidas: 0 };
+  const bloco = document.getElementById(blocoId);
+  bloco.querySelectorAll('.questao').forEach(q => {
+    delete q.dataset.respondido;
+    q.querySelectorAll('.opcao').forEach(o => { o.className = 'opcao'; o.disabled = false; });
+    const fb = q.querySelector('.feedback');
+    fb.className = 'feedback'; fb.textContent = '';
+  });
+  document.getElementById('score-' + blocoId).classList.remove('show');
+}
+</script>
+</body>
+</html>
